@@ -23,8 +23,8 @@
     </HBox>
 
     <HBox spacing="10">
-        <Button text="Add Sale" onAction="#handleAddSale"/>
-        <Button text="Delete Sale" onAction="#handleDeleteSale"/>
-<!--        <Button text="Generate Sales Report" onAction="#handleSalesReport"/>-->
+<!--        <Button text="Add Sale" onAction="#handleAddSale"/>-->
+<!--        <Button text="Delete Sale" onAction="#handleDeleteSale"/>-->
+        <Button text="Generate Sales Report" onAction="#handleGenerateSalesReport"/>
     </HBox>
 </VBox>

@@ -4,20 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="01ee3b96-04a7-4d83-be8a-2af5d7e1fa87" name="Changes" comment="start over">
+    <list default="true" id="01ee3b96-04a7-4d83-be8a-2af5d7e1fa87" name="Changes" comment="all controllers functional, moving on to login, generate reports, customer order and seating">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/MainApp.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/MainApp.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/controller/MainController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/controller/MainController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/controller/OrderController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/controller/OrderController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/dao/OrderDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/dao/OrderDAO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/model/Order.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/model/Order.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/utils/DatabaseInitializer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/utils/DatabaseInitializer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/fxml/inventory.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/fxml/inventory.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/fxml/main.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/fxml/main.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/fxml/menu.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/fxml/menu.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/fxml/order.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/fxml/order.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/controller/SalesController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/controller/SalesController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/fxml/sales.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/fxml/sales.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/fxml/table.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/fxml/table.fxml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -107,7 +97,7 @@
       <updated>1724301106987</updated>
       <workItem from="1724301108085" duration="2202000" />
       <workItem from="1724305196126" duration="4950000" />
-      <workItem from="1724310709618" duration="3285000" />
+      <workItem from="1724310709618" duration="3981000" />
     </task>
     <task id="LOCAL-00001" summary="start over">
       <option name="closed" value="true" />
@@ -117,7 +107,15 @@
       <option name="project" value="LOCAL" />
       <updated>1724309877231</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="all controllers functional, moving on to login, generate reports, customer order and seating">
+      <option name="closed" value="true" />
+      <created>1724314121567</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1724314121568</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -125,6 +123,7 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="start over" />
-    <option name="LAST_COMMIT_MESSAGE" value="start over" />
+    <MESSAGE value="all controllers functional, moving on to login, generate reports, customer order and seating" />
+    <option name="LAST_COMMIT_MESSAGE" value="all controllers functional, moving on to login, generate reports, customer order and seating" />
   </component>
 </project>

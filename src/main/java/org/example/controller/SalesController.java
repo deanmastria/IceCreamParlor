@@ -4,15 +4,13 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
 import org.example.dao.SalesDAO;
 import org.example.model.Sale;
 
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
+import java.io.FileWriter;
+import java.io.IOException;
 
 public class SalesController {
 
@@ -31,29 +29,17 @@ public class SalesController {
     @FXML
     private TableColumn<Sale, String> dateColumn;
 
-    @FXML
-    private TextField orderIdField;
-
-    @FXML
-    private TextField revenueField;
-
-    @FXML
-    private Button addSaleButton;
-
-    @FXML
-    private Button deleteSaleButton;
-
     private final SalesDAO salesDAO = new SalesDAO();
 
     @FXML
     public void initialize() {
-        // Initialize the columns with the model properties
+        // Initialize table columns
         saleIdColumn.setCellValueFactory(cellData -> cellData.getValue().idProperty().asObject());
         orderIdColumn.setCellValueFactory(cellData -> cellData.getValue().orderIdProperty().asObject());
         revenueColumn.setCellValueFactory(cellData -> cellData.getValue().revenueProperty().asObject());
         dateColumn.setCellValueFactory(cellData -> cellData.getValue().dateProperty());
 
-        // Load the sales data into the TableView
+        // Load sales data into the table view
         loadSales();
     }
 
@@ -63,45 +49,33 @@ public class SalesController {
     }
 
     @FXML
-    private void handleAddSale() {
+    private void handleGenerateSalesReport() {
         try {
-            int orderId = Integer.parseInt(orderIdField.getText());
-            double revenue = Double.parseDouble(revenueField.getText());
-            String date = LocalDate.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+            // Fetch sales data from the table view
+            ObservableList<Sale> salesData = salesTableView.getItems();
 
-            boolean success = salesDAO.addSale(orderId, revenue, date);
+            // Define the report file path and name
+            FileWriter writer = new FileWriter("Sales_Report.csv");
 
-            if (success) {
-                showAlert(Alert.AlertType.INFORMATION, "Success", "Sale added successfully.");
-                loadSales();  // Refresh the sales list
-                clearInputFields();
-            } else {
-                showAlert(Alert.AlertType.ERROR, "Error", "Failed to add sale.");
+            // Write CSV header
+            writer.append("Sale ID,Order ID,Revenue,Date\n");
+
+            // Write sales data
+            for (Sale sale : salesData) {
+                writer.append(sale.getId() + ",")
+                        .append(sale.getOrderId() + ",")
+                        .append(sale.getRevenue() + ",")
+                        .append(sale.getDate() + "\n");
             }
-        } catch (NumberFormatException e) {
-            showAlert(Alert.AlertType.ERROR, "Error", "Invalid input. Please enter valid numbers.");
-        }
-    }
 
-    @FXML
-    private void handleDeleteSale() {
-        Sale selectedSale = salesTableView.getSelectionModel().getSelectedItem();
-        if (selectedSale != null) {
-            boolean success = salesDAO.deleteSale(selectedSale.getId());
-            if (success) {
-                showAlert(Alert.AlertType.INFORMATION, "Success", "Sale deleted successfully.");
-                loadSales();  // Refresh the sales list
-            } else {
-                showAlert(Alert.AlertType.ERROR, "Error", "Failed to delete sale.");
-            }
-        } else {
-            showAlert(Alert.AlertType.WARNING, "No Selection", "Please select a sale to delete.");
-        }
-    }
+            writer.flush();
+            writer.close();
 
-    private void clearInputFields() {
-        orderIdField.clear();
-        revenueField.clear();
+            showAlert(Alert.AlertType.INFORMATION, "Success", "Sales report generated successfully.");
+
+        } catch (IOException e) {
+            showAlert(Alert.AlertType.ERROR, "Error", "Failed to generate sales report.");
+        }
     }
 
     private void showAlert(Alert.AlertType alertType, String title, String message) {

@@ -4,10 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="01ee3b96-04a7-4d83-be8a-2af5d7e1fa87" name="Changes" comment="all controllers functional, moving on to login, generate reports, customer order and seating">
+    <list default="true" id="01ee3b96-04a7-4d83-be8a-2af5d7e1fa87" name="Changes" comment="Created Tests for MenuItemDAO">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/controller/SalesController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/controller/SalesController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/fxml/sales.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/fxml/sales.fxml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -19,10 +17,16 @@
       <list>
         <option value="FxmlFile" />
         <option value="Class" />
+        <option value="JUnit5 Test Class" />
       </list>
     </option>
   </component>
   <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="master" />
+      </map>
+    </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="GitHubPullRequestSearchHistory">{
@@ -34,7 +38,7 @@
   <component name="GithubPullRequestsUISettings">{
   &quot;selectedUrlAndAccountId&quot;: {
     &quot;url&quot;: &quot;https://github.com/deanmastria/IceCreamParlor.git&quot;,
-    &quot;accountId&quot;: &quot;3f50524b-dad4-4136-8860-eb440d7c297e&quot;
+    &quot;accountId&quot;: &quot;a67f8eb2-03b9-4cd2-9e65-d252b28b5a0c&quot;
   }
 }</component>
   <component name="ProblemsViewState">
@@ -49,31 +53,41 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;Application.MainApp.executor&quot;: &quot;Run&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
-    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/deanm/IdeaProjects/test&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Application.MainApp.executor": "Run",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary": "JUnit5",
+    "com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit5": "",
+    "git-widget-placeholder": "Carrie",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "C:/Users/deanm/IdeaProjects/test",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "vue.rearranger.settings.migration": "true"
   },
-  &quot;keyToStringList&quot;: {
-    &quot;DatabaseDriversLRU&quot;: [
-      &quot;sqlite&quot;
+  "keyToStringList": {
+    "DatabaseDriversLRU": [
+      "sqlite"
     ]
   }
-}</component>
+}]]></component>
+  <component name="RecentsManager">
+    <key name="CreateTestDialog.Recents.Supers">
+      <recent name="" />
+    </key>
+    <key name="CreateTestDialog.RecentsKey">
+      <recent name="org.example.dao" />
+    </key>
+  </component>
   <component name="RunManager">
     <configuration name="MainApp" type="Application" factoryName="Application">
       <option name="MAIN_CLASS_NAME" value="org.example.MainApp" />
-      <module name="test" />
-      <option name="VM_PARAMETERS" value="--module-path C:\Users\deanm\.m2\repository\org\openjfx\javafx-controls\19.0.2;C:\Users\deanm\.m2\repository\org\openjfx\javafx-fxml\19.0.2;C:\Users\deanm\.m2\repository\org\openjfx\javafx-base\19.0.2;C:\Users\deanm\.m2\repository\org\openjfx\javafx-graphics\19.0.2 --add-modules javafx.controls,javafx.fxml " />
+      <module name="RestaurantManagementSystem" />
+      <option name="VM_PARAMETERS" value="--module-path C:\Users\User\.m2\repository\org\openjfx\javafx-controls\19.0.2;C:\Users\User\.m2\repository\org\openjfx\javafx-fxml\19.0.2;C:\Users\User\.m2\repository\org\openjfx\javafx-base\19.0.2;C:\Users\User\.m2\repository\org\openjfx\javafx-graphics\19.0.2 --add-modules javafx.controls,javafx.fxml " />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -82,8 +96,8 @@
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
-        <option value="bundled-jdk-9f38398b9061-39b83d9b5494-intellij.indexing.shared.core-IU-241.18034.62" />
-        <option value="bundled-js-predefined-1d06a55b98c1-0b3e54e931b4-JavaScript-IU-241.18034.62" />
+        <option value="bundled-jdk-9f38398b9061-39b83d9b5494-intellij.indexing.shared.core-IU-241.19072.14" />
+        <option value="bundled-js-predefined-1d06a55b98c1-0b3e54e931b4-JavaScript-IU-241.19072.14" />
       </set>
     </attachedChunks>
   </component>
@@ -98,6 +112,8 @@
       <workItem from="1724301108085" duration="2202000" />
       <workItem from="1724305196126" duration="4950000" />
       <workItem from="1724310709618" duration="3981000" />
+      <workItem from="1724329226361" duration="8563000" />
+      <workItem from="1724346366351" duration="6961000" />
     </task>
     <task id="LOCAL-00001" summary="start over">
       <option name="closed" value="true" />
@@ -115,7 +131,23 @@
       <option name="project" value="LOCAL" />
       <updated>1724314121568</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="Created TicketGenerator code">
+      <option name="closed" value="true" />
+      <created>1724336648389</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1724336648389</updated>
+    </task>
+    <task id="LOCAL-00004" summary="Created Tests for MenuItemDAO">
+      <option name="closed" value="true" />
+      <created>1724352022054</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1724352022054</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -124,6 +156,8 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="start over" />
     <MESSAGE value="all controllers functional, moving on to login, generate reports, customer order and seating" />
-    <option name="LAST_COMMIT_MESSAGE" value="all controllers functional, moving on to login, generate reports, customer order and seating" />
+    <MESSAGE value="Created TicketGenerator code" />
+    <MESSAGE value="Created Tests for MenuItemDAO" />
+    <option name="LAST_COMMIT_MESSAGE" value="Created Tests for MenuItemDAO" />
   </component>
 </project>

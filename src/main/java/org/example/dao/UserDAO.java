@@ -1,6 +1,8 @@
 package org.example.dao;
 
+import org.example.model.User;
 import org.example.utils.DatabaseConnection;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -28,22 +30,51 @@ public class UserDAO {
         }
     }
 
-    // Read (Login a user)
-    public boolean loginUser(String username, String passwordHash) {
-        String sql = "SELECT * FROM Users WHERE username = ? AND passwordHash = ?";
+    // Read (Retrieve user details for login)
+    public User getUserByUsername(String username) {
+        String sql = "SELECT * FROM Users WHERE username = ?";
 
         try (Connection conn = DatabaseConnection.connect();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
 
             pstmt.setString(1, username);
-            pstmt.setString(2, passwordHash);
-
             ResultSet rs = pstmt.executeQuery();
-            return rs.next();  // Return true if a user with the provided credentials is found
+
+            if (rs.next()) {
+                String passwordHash = rs.getString("passwordHash");
+                int roleId = rs.getInt("roleId");
+                return new User(username, passwordHash, roleId);  // Return a User object with the retrieved details
+            }
 
         } catch (SQLException e) {
-            System.err.println("Error logging in user: " + e.getMessage());
-            return false;
+            System.err.println("Error retrieving user: " + e.getMessage());
+        }
+        return null;  // Return null if user not found
+    }
+
+    // Verify password during login
+    public boolean verifyPassword(User user, String password) {
+        String enteredHash = hashPassword(password);
+
+        // Debugging: Print the hashes for comparison
+        System.out.println("Entered password hash: " + enteredHash);
+        System.out.println("Stored password hash: " + user.getPasswordHash());
+
+        return user.getPasswordHash().equals(enteredHash);
+    }
+
+    // Hash password using SHA-256
+    private String hashPassword(String password) {
+        try {
+            var md = java.security.MessageDigest.getInstance("SHA-256");
+            var bytes = md.digest(password.getBytes());
+            var sb = new StringBuilder();
+            for (byte b : bytes) {
+                sb.append(String.format("%02x", b));
+            }
+            return sb.toString();
+        } catch (Exception e) {
+            throw new RuntimeException("Failed to hash password: " + e.getMessage(), e);
         }
     }
 
@@ -84,4 +115,16 @@ public class UserDAO {
             return false;
         }
     }
+
+    // Login method
+    public boolean loginUser(String username, String password) {
+        User user = getUserByUsername(username);
+        if (user != null) {
+            return verifyPassword(user, password);
+        } else {
+            System.out.println("User not found with username: " + username);
+            return false;
+        }
+    }
 }
+

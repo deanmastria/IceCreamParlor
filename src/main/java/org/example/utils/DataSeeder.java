@@ -21,6 +21,60 @@ public class DataSeeder {
         }
     }
 
+    public static void seedUsers(Connection conn) {
+        String sql = "INSERT INTO Users(username, passwordHash, roleId) VALUES(?, ?, ?)";
+
+        try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            // Add staff user
+            String staffPasswordHash = hashPassword("staff123");
+            pstmt.setString(1, "staff");
+            pstmt.setString(2, staffPasswordHash);
+            pstmt.setInt(3, getRoleId(conn, "staff"));
+            pstmt.executeUpdate();
+            System.out.println("Seeded staff password hash: " + staffPasswordHash);
+
+            // Add manager user
+            String managerPasswordHash = hashPassword("manager123");
+            pstmt.setString(1, "manager");
+            pstmt.setString(2, managerPasswordHash);
+            pstmt.setInt(3, getRoleId(conn, "manager"));
+            pstmt.executeUpdate();
+            System.out.println("Seeded manager password hash: " + managerPasswordHash);
+
+            System.out.println("Users data has been seeded.");
+        } catch (Exception e) {
+            System.err.println("Failed to seed users data: " + e.getMessage());
+        }
+    }
+
+    private static int getRoleId(Connection conn, String roleName) {
+        String sql = "SELECT id FROM Roles WHERE roleName = ?";
+        try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            pstmt.setString(1, roleName);
+            var rs = pstmt.executeQuery();
+            if (rs.next()) {
+                return rs.getInt("id");
+            }
+        } catch (Exception e) {
+            System.err.println("Failed to retrieve role ID for " + roleName + ": " + e.getMessage());
+        }
+        return -1; // Return an invalid ID if not found
+    }
+
+    private static String hashPassword(String password) {
+        try {
+            var md = java.security.MessageDigest.getInstance("SHA-256");
+            var bytes = md.digest(password.getBytes());
+            var sb = new StringBuilder();
+            for (byte b : bytes) {
+                sb.append(String.format("%02x", b));
+            }
+            return sb.toString();
+        } catch (Exception e) {
+            throw new RuntimeException("Failed to hash password: " + e.getMessage(), e);
+        }
+    }
+
     public static void seedCategories(Connection conn) {
         String[] categories = {"Ice Cream", "Toppings", "Drinks"};
         String sql = "INSERT INTO Categories(categoryName) VALUES(?)";  // Correct column name

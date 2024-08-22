@@ -4,12 +4,12 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="01ee3b96-04a7-4d83-be8a-2af5d7e1fa87" name="Changes" comment="database initializer set to auto delete existing database">
+    <list default="true" id="01ee3b96-04a7-4d83-be8a-2af5d7e1fa87" name="Changes" comment="all buttons work, merging code with fish">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/controller/MenuItemController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/controller/MenuItemController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/dao/MenuItemDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/dao/MenuItemDAO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/model/MenuItem.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/model/MenuItem.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/controller/MainController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/controller/MainController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/dao/UserDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/dao/UserDAO.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/example/utils/DataSeeder.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/utils/DataSeeder.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/utils/DatabaseInitializer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/utils/DatabaseInitializer.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -101,7 +101,7 @@
       <workItem from="1724301108085" duration="2202000" />
       <workItem from="1724305196126" duration="4950000" />
       <workItem from="1724310709618" duration="3981000" />
-      <workItem from="1724329183285" duration="8870000" />
+      <workItem from="1724329183285" duration="12581000" />
     </task>
     <task id="LOCAL-00001" summary="start over">
       <option name="closed" value="true" />
@@ -127,7 +127,23 @@
       <option name="project" value="LOCAL" />
       <updated>1724336812631</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="all buttons work, merging code with fish">
+      <option name="closed" value="true" />
+      <created>1724345024163</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1724345024163</updated>
+    </task>
+    <task id="LOCAL-00005" summary="all buttons work, merging code with fish">
+      <option name="closed" value="true" />
+      <created>1724347928150</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1724347928150</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -137,7 +153,8 @@
     <MESSAGE value="start over" />
     <MESSAGE value="all controllers functional, moving on to login, generate reports, customer order and seating" />
     <MESSAGE value="database initializer set to auto delete existing database" />
-    <option name="LAST_COMMIT_MESSAGE" value="database initializer set to auto delete existing database" />
+    <MESSAGE value="all buttons work, merging code with fish" />
+    <option name="LAST_COMMIT_MESSAGE" value="all buttons work, merging code with fish" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

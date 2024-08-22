@@ -11,6 +11,10 @@ public class DatabaseInitializer {
     private static final Logger LOGGER = Logger.getLogger(DatabaseInitializer.class.getName());
 
     public static void initialize() {
+
+
+        deleteExistingDatabase();
+
         try (Connection conn = DatabaseConnection.connect();
              Statement stmt = conn.createStatement()) {
 
@@ -39,7 +43,18 @@ public class DatabaseInitializer {
         }
     }
 
-    // Table creation methods remain unchanged
+    private static void deleteExistingDatabase() {
+        File dbFile = new File("restaurant.db");
+        if (dbFile.exists()) {
+            if (dbFile.delete()) {
+                LOGGER.info("Existing database deleted successfully.");
+            } else {
+                LOGGER.warning("Failed to delete existing database.");
+            }
+        } else {
+            LOGGER.info("No existing database found to delete.");
+        }
+    }
 
     private static void createCategoriesTable(Statement stmt) throws SQLException {
         String sql = "CREATE TABLE IF NOT EXISTS Categories (" +

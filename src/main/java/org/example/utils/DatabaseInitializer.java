@@ -1,6 +1,5 @@
 package org.example.utils;
 
-import java.io.File;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -12,15 +11,12 @@ public class DatabaseInitializer {
     private static final Logger LOGGER = Logger.getLogger(DatabaseInitializer.class.getName());
 
     public static void initialize() {
-        // Step 1: Delete the existing database file
-        deleteExistingDatabase();
-
         try (Connection conn = DatabaseConnection.connect();
              Statement stmt = conn.createStatement()) {
 
-            // Step 2: Create necessary tables in the right order based on their dependencies
-            createCategoriesTable(stmt);  // Create Categories first as it is referenced by MenuItems
-            createRolesTable(stmt);       // Create Roles before Users
+            // Ensure tables are created in the right order based on their dependencies
+            createCategoriesTable(stmt);
+            createRolesTable(stmt);
             createUsersTable(stmt);
             createMenuItemsTable(stmt);
             createOrdersTable(stmt);
@@ -28,29 +24,27 @@ public class DatabaseInitializer {
             createInventoryTable(stmt);
             createSalesTable(stmt);
 
-            LOGGER.info("Database has been initialized.");
+            // After tables are created, seed initial data
+            DataSeeder.seedRoles(conn);
+            DataSeeder.seedCategories(conn);
+            DataSeeder.seedTables(conn);
+            DataSeeder.seedInventory(conn);
+            DataSeeder.seedMenuItems(conn);
+            DataSeeder.seedMenuItemIngredients(conn);
+
+            LOGGER.info("Database has been initialized and seeded with data.");
+
         } catch (SQLException e) {
-            LOGGER.log(Level.SEVERE, "Error during database initialization", e);
+            LOGGER.log(Level.SEVERE, "Error during database initialization and seeding", e);
         }
     }
 
-    private static void deleteExistingDatabase() {
-        File dbFile = new File("restaurant.db");
-        if (dbFile.exists()) {
-            if (dbFile.delete()) {
-                LOGGER.info("Existing database deleted successfully.");
-            } else {
-                LOGGER.warning("Failed to delete existing database.");
-            }
-        } else {
-            LOGGER.info("No existing database found to delete.");
-        }
-    }
+    // Table creation methods remain unchanged
 
     private static void createCategoriesTable(Statement stmt) throws SQLException {
         String sql = "CREATE TABLE IF NOT EXISTS Categories (" +
                 "id INTEGER PRIMARY KEY AUTOINCREMENT, " +
-                "categoryName TEXT NOT NULL UNIQUE)";  // Ensure column is named 'categoryName'
+                "categoryName TEXT NOT NULL UNIQUE)";
         stmt.execute(sql);
         LOGGER.info("Categories table created successfully.");
     }
@@ -83,7 +77,7 @@ public class DatabaseInitializer {
                 "price REAL NOT NULL CHECK(price >= 0)," +
                 "ingredients TEXT," +
                 "categoryId INTEGER NOT NULL," +
-                "FOREIGN KEY (categoryId) REFERENCES Categories(id))";  // Reference Categories table
+                "FOREIGN KEY (categoryId) REFERENCES Categories(id))";
         stmt.execute(sql);
         LOGGER.info("MenuItems table created successfully.");
     }

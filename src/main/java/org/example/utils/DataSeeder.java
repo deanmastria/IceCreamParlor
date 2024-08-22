@@ -7,7 +7,7 @@ public class DataSeeder {
 
 
     public static void seedRoles(Connection conn) {
-        String[] roles = {"staff", "manager", "cashier", "chef"};
+        String[] roles = {"staff", "manager"};
         String sql = "INSERT INTO Roles(roleName) VALUES(?)";
 
         try (PreparedStatement pstmt = conn.prepareStatement(sql)) {

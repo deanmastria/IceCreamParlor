@@ -4,14 +4,12 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="01ee3b96-04a7-4d83-be8a-2af5d7e1fa87" name="Changes" comment="all controllers functional, moving on to login, generate reports, customer order and seating">
+    <list default="true" id="01ee3b96-04a7-4d83-be8a-2af5d7e1fa87" name="Changes" comment="database initializer set to auto delete existing database">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/example/controller/MenuItemController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/controller/MenuItemController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/example/dao/MenuItemDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/dao/MenuItemDAO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/model/MenuItem.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/model/MenuItem.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/example/utils/DataSeeder.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/utils/DataSeeder.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/utils/DatabaseInitializer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/utils/DatabaseInitializer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/fxml/menu.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/fxml/menu.fxml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -103,7 +101,7 @@
       <workItem from="1724301108085" duration="2202000" />
       <workItem from="1724305196126" duration="4950000" />
       <workItem from="1724310709618" duration="3981000" />
-      <workItem from="1724329183285" duration="6686000" />
+      <workItem from="1724329183285" duration="8870000" />
     </task>
     <task id="LOCAL-00001" summary="start over">
       <option name="closed" value="true" />
@@ -121,7 +119,15 @@
       <option name="project" value="LOCAL" />
       <updated>1724314121568</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="database initializer set to auto delete existing database">
+      <option name="closed" value="true" />
+      <created>1724336812631</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1724336812631</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -130,7 +136,8 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="start over" />
     <MESSAGE value="all controllers functional, moving on to login, generate reports, customer order and seating" />
-    <option name="LAST_COMMIT_MESSAGE" value="all controllers functional, moving on to login, generate reports, customer order and seating" />
+    <MESSAGE value="database initializer set to auto delete existing database" />
+    <option name="LAST_COMMIT_MESSAGE" value="database initializer set to auto delete existing database" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

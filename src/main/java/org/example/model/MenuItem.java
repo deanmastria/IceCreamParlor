@@ -56,6 +56,10 @@ public class MenuItem {
         return id.get();
     }
 
+    public int getCategoryId() {
+        return id.get();
+    }
+
     public void setId(int id) {
         this.id.set(id);
     }

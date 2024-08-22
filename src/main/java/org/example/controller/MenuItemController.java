@@ -1,5 +1,6 @@
 package org.example.controller;
 
+import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -48,6 +49,9 @@ public class MenuItemController {
     @FXML
     private TableColumn<MenuItem, String> ingredientsColumn;
 
+    @FXML
+    private TableColumn<MenuItem, String> categoryColumn;  // Add this column for category names
+
     private final MenuItemDAO menuItemDAO = new MenuItemDAO();
 
     @FXML
@@ -59,10 +63,17 @@ public class MenuItemController {
         priceColumn.setCellValueFactory(cellData -> cellData.getValue().priceProperty().asObject());
         ingredientsColumn.setCellValueFactory(cellData -> cellData.getValue().ingredientsProperty());
 
+        // Set category column to display category names
+        categoryColumn.setCellValueFactory(cellData -> {
+            int categoryId = cellData.getValue().getCategoryId(); // Get categoryId from MenuItem
+            String categoryName = menuItemDAO.getCategoryNameById(categoryId); // Get category name from DAO
+            return new SimpleStringProperty(categoryName);
+        });
+
         // Load menu items into the table view
         loadMenuItems();
 
-        // Initialize the category combo box with example values (replace with actual categories from database)
+        // Initialize the category combo box with actual categories from the database
         ObservableList<String> categories = FXCollections.observableArrayList(menuItemDAO.getAllCategories());
         categoryComboBox.setItems(categories);
         filterCategoryComboBox.setItems(categories);

@@ -17,6 +17,8 @@
             <TableColumn fx:id="preparationTimeColumn" text="Preparation Time"/>
             <TableColumn fx:id="priceColumn" text="Price"/>
             <TableColumn fx:id="ingredientsColumn" text="Ingredients"/>
+            <TableColumn fx:id="categoryColumn" text="Category"/>
+
         </columns>
     </TableView>
 

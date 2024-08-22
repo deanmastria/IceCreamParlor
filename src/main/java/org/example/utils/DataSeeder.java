@@ -2,20 +2,33 @@ package org.example.utils;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+
 
 public class DataSeeder {
 
-
     public static void seedRoles(Connection conn) {
         String[] roles = {"staff", "manager"};
-        String sql = "INSERT INTO Roles(roleName) VALUES(?)";
+        String sqlInsert = "INSERT INTO Roles(roleName) VALUES(?)";
+        String sqlCheck = "SELECT COUNT(*) FROM Roles WHERE roleName = ?";
 
-        try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
+        try (PreparedStatement pstmtInsert = conn.prepareStatement(sqlInsert);
+             PreparedStatement pstmtCheck = conn.prepareStatement(sqlCheck)) {
+
             for (String role : roles) {
-                pstmt.setString(1, role);
-                pstmt.executeUpdate();
+                pstmtCheck.setString(1, role);
+                ResultSet rs = pstmtCheck.executeQuery();
+                rs.next();
+                int count = rs.getInt(1);
+
+                if (count == 0) {
+                    pstmtInsert.setString(1, role);
+                    pstmtInsert.executeUpdate();
+                    System.out.println("Role '" + role + "' has been seeded.");
+                } else {
+                    System.out.println("Role '" + role + "' already exists.");
+                }
             }
-            System.out.println("Roles data has been seeded.");
         } catch (Exception e) {
             System.err.println("Failed to seed roles data: " + e.getMessage());
         }
@@ -300,27 +313,6 @@ public class DataSeeder {
             System.out.println("Soda menu items seeded.");
         } catch (Exception e) {
             System.err.println("Failed to seed soda menu items: " + e.getMessage());
-        }
-    }
-
-    public static void seedMenuItemIngredients(Connection conn) {
-        String sql = "INSERT INTO MenuItemIngredients(menuItemId, ingredientId, quantityNeeded) VALUES(?, ?, ?)";
-
-        try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
-            // Example: Vanilla Milkshake requires 2 units of Vanilla Ice Cream and 1 unit of Milk
-            pstmt.setInt(1, 1); // Menu Item ID (Vanilla Milkshake)
-            pstmt.setInt(2, 1); // Ingredient ID (Vanilla Ice Cream)
-            pstmt.setInt(3, 2); // Quantity Needed
-            pstmt.executeUpdate();
-
-            pstmt.setInt(1, 1); // Menu Item ID (Vanilla Milkshake)
-            pstmt.setInt(2, 2); // Ingredient ID (Milk)
-            pstmt.setInt(3, 1); // Quantity Needed
-            pstmt.executeUpdate();
-
-            System.out.println("MenuItemIngredients data has been seeded.");
-        } catch (Exception e) {
-            System.err.println("Failed to seed MenuItemIngredients data: " + e.getMessage());
         }
     }
 }

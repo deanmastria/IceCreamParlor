@@ -37,6 +37,7 @@ public class Order {
     public StringProperty statusProperty() {
         return status;
     }
+
     // Getter for ID
     public int getId() {
         return id.get();
@@ -44,5 +45,37 @@ public class Order {
 
     public void setId(int id) {
         this.id.set(id);
+    }
+
+    public int getUserId() {
+        return userId.get();
+    }
+
+    public void setUserId(int userId) {
+        this.userId.set(userId);
+    }
+
+    public String getItems() {
+        return items.get();
+    }
+
+    public void setItems(String items) {
+        this.items.set(items);
+    }
+
+    public double getTotalPrice() {
+        return totalPrice.get();
+    }
+
+    public void setTotalPrice(double totalPrice) {
+        this.totalPrice.set(totalPrice);
+    }
+
+    public String getStatus() {
+        return status.get();
+    }
+
+    public void setStatus(String status) {
+        this.status.set(status);
     }
 }

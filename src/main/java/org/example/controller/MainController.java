@@ -9,15 +9,23 @@ import java.io.IOException;
 public class MainController {
 
     public void handleSales() {
-        loadScene("/path/to/sales.fxml", "Manage Sales");
+        loadScene("/fxml/sales.fxml", "Manage Sales");
     }
 
     public void handleInventory() {
-        loadScene("/path/to/inventory.fxml", "Manage Inventory");
+        loadScene("/fxml/inventory.fxml", "Manage Inventory");
     }
 
     public void handleTables() {
-        loadScene("/path/to/tables.fxml", "Manage Tables");
+        loadScene("/fxml/table.fxml", "Manage Tables");
+    }
+
+    public void handleMenu() {
+        loadScene("/fxml/menu.fxml", "Manage Menu");
+    }
+
+    public void handleOrders() {
+        loadScene("/fxml/order.fxml", "Manage Orders");
     }
 
     private void loadScene(String fxmlPath, String title) {
@@ -32,4 +40,3 @@ public class MainController {
         }
     }
 }
-

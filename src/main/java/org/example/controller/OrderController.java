@@ -7,34 +7,41 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
 import org.example.dao.OrderDAO;
 import org.example.model.Order;
 
 public class OrderController {
 
     @FXML
-    private TableView<Order> ordersTableView;
+    private TableView<Order> ordersTableView;  // This is synchronized with the FXML
 
     @FXML
-    private TableColumn<Order, Integer> orderIdColumn;
+    private TableColumn<Order, Integer> orderIdColumn;  // This is synchronized with the FXML
 
     @FXML
-    private TableColumn<Order, Integer> userIdColumn;
+    private TableColumn<Order, Integer> userIdColumn;  // This is synchronized with the FXML
 
     @FXML
-    private TableColumn<Order, String> itemsColumn;
+    private TableColumn<Order, String> itemsColumn;  // This is synchronized with the FXML
 
     @FXML
-    private TableColumn<Order, Double> totalPriceColumn;
+    private TableColumn<Order, Double> totalPriceColumn;  // This is synchronized with the FXML
 
     @FXML
-    private TableColumn<Order, String> statusColumn;
+    private TableColumn<Order, String> statusColumn;  // This is synchronized with the FXML
 
     @FXML
-    private Button updateOrderStatusButton;
+    private TextField userIdField;  // TextField for User ID input
 
     @FXML
-    private Button cancelOrderButton;
+    private TextField itemsField;  // TextField for Items input
+
+    @FXML
+    private TextField totalPriceField;  // TextField for Total Price input
+
+    @FXML
+    private TextField statusField;  // TextField for Status input
 
     private final OrderDAO orderDAO = new OrderDAO();
 
@@ -57,15 +64,45 @@ public class OrderController {
     }
 
     @FXML
-    private void handleUpdateOrderStatus() {
+    private void handleAddOrder() {
+        try {
+            int userId = Integer.parseInt(userIdField.getText());
+            String items = itemsField.getText();
+            double totalPrice = Double.parseDouble(totalPriceField.getText());
+            String status = statusField.getText();
+
+            boolean success = orderDAO.addOrder(userId, items, totalPrice, status);
+
+            if (success) {
+                showAlert(Alert.AlertType.INFORMATION, "Success", "Order added successfully.");
+                loadOrders();  // Refresh table view
+            } else {
+                showAlert(Alert.AlertType.ERROR, "Error", "Failed to add order.");
+            }
+        } catch (Exception e) {
+            showAlert(Alert.AlertType.ERROR, "Error", "An unexpected error occurred.");
+        }
+    }
+
+    @FXML
+    private void handleUpdateOrder() {
         Order selectedOrder = ordersTableView.getSelectionModel().getSelectedItem();
         if (selectedOrder != null) {
-            boolean success = orderDAO.updateOrderStatus(selectedOrder.getId(), "Preparing");  // Example status update
-            if (success) {
-                showAlert(Alert.AlertType.INFORMATION, "Success", "Order status updated.");
-                loadOrders();  // Refresh orders
-            } else {
-                showAlert(Alert.AlertType.ERROR, "Error", "Failed to update order status.");
+            try {
+                String items = itemsField.getText();
+                double totalPrice = Double.parseDouble(totalPriceField.getText());
+                String status = statusField.getText();
+
+                boolean success = orderDAO.updateOrder(selectedOrder.getId(), selectedOrder.getUserId(), items, totalPrice, status);
+
+                if (success) {
+                    showAlert(Alert.AlertType.INFORMATION, "Success", "Order updated successfully.");
+                    loadOrders();  // Refresh table view
+                } else {
+                    showAlert(Alert.AlertType.ERROR, "Error", "Failed to update order.");
+                }
+            } catch (Exception e) {
+                showAlert(Alert.AlertType.ERROR, "Error", "An unexpected error occurred.");
             }
         } else {
             showAlert(Alert.AlertType.WARNING, "No Selection", "Please select an order to update.");
@@ -73,18 +110,18 @@ public class OrderController {
     }
 
     @FXML
-    private void handleCancelOrder() {
+    private void handleDeleteOrder() {
         Order selectedOrder = ordersTableView.getSelectionModel().getSelectedItem();
         if (selectedOrder != null) {
-            boolean success = orderDAO.cancelOrder(selectedOrder.getId());
+            boolean success = orderDAO.deleteOrder(selectedOrder.getId());
             if (success) {
-                showAlert(Alert.AlertType.INFORMATION, "Success", "Order canceled successfully.");
-                loadOrders();  // Refresh orders
+                showAlert(Alert.AlertType.INFORMATION, "Success", "Order deleted successfully.");
+                loadOrders();  // Refresh table view
             } else {
-                showAlert(Alert.AlertType.ERROR, "Error", "Failed to cancel order.");
+                showAlert(Alert.AlertType.ERROR, "Error", "Failed to delete order.");
             }
         } else {
-            showAlert(Alert.AlertType.WARNING, "No Selection", "Please select an order to cancel.");
+            showAlert(Alert.AlertType.WARNING, "No Selection", "Please select an order to delete.");
         }
     }
 

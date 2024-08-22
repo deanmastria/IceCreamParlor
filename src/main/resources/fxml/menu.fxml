@@ -4,29 +4,32 @@
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.TextArea?>  <!-- Import TextArea -->
+<?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.layout.HBox?>
 
 <VBox spacing="10" alignment="CENTER" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.controller.MenuItemController">
-    <TableView fx:id="menuTableView">
+    <TableView fx:id="menuItemsTableView"> <!-- Updated ID -->
         <columns>
-            <TableColumn fx:id="idColumn" text="ID"/>
             <TableColumn fx:id="nameColumn" text="Name"/>
             <TableColumn fx:id="descriptionColumn" text="Description"/>
             <TableColumn fx:id="preparationTimeColumn" text="Preparation Time"/>
             <TableColumn fx:id="priceColumn" text="Price"/>
             <TableColumn fx:id="ingredientsColumn" text="Ingredients"/>
-            <TableColumn fx:id="quantityColumn" text="Quantity"/>
         </columns>
     </TableView>
 
     <HBox spacing="10">
-        <TextField fx:id="nameField" promptText="Name"/>
-        <TextField fx:id="descriptionField" promptText="Description"/>
-        <TextField fx:id="preparationTimeField" promptText="Preparation Time"/>
-        <TextField fx:id="priceField" promptText="Price"/>
-        <TextField fx:id="ingredientsField" promptText="Ingredients"/>
-        <TextField fx:id="quantityField" promptText="Quantity"/>
+        <TextField fx:id="nameTextField" promptText="Name"/> <!-- Updated ID -->
+        <TextField fx:id="descriptionTextField" promptText="Description"/> <!-- Updated ID -->
+        <TextField fx:id="preparationTimeTextField" promptText="Preparation Time"/> <!-- Updated ID -->
+        <TextField fx:id="priceTextField" promptText="Price"/> <!-- Updated ID -->
+        <TextArea fx:id="ingredientsTextArea" promptText="Ingredients"/> <!-- Updated ID -->
+    </HBox>
+
+    <HBox spacing="10">
+        <ComboBox fx:id="categoryComboBox" promptText="Category"/> <!-- Added ComboBox -->
     </HBox>
 
     <HBox spacing="10">

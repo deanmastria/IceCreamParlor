@@ -2,31 +2,24 @@ package org.example;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
-
-import java.net.URL;
+import org.example.utils.DatabaseInitializer;
 
 public class MainApp extends Application {
 
     @Override
-    public void start(Stage primaryStage) {
-        try {
-            // Ensure the path is correct
-            URL fxmlLocation = getClass().getResource("/fxml/main.fxml");
-            if (fxmlLocation == null) {
-                throw new NullPointerException("FXML file not found at specified location.");
-            }
+    public void start(Stage primaryStage) throws Exception {
+        // Initialize the database
+        DatabaseInitializer.initialize();
 
-            VBox root = FXMLLoader.load(fxmlLocation);
-            Scene scene = new Scene(root, 400, 300);
-            primaryStage.setScene(scene);
-            primaryStage.setTitle("Restaurant Management");
-            primaryStage.show();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        // Load the main FXML and show the primary stage
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/main.fxml"));
+        Parent root = loader.load();
+        primaryStage.setTitle("Restaurant Management System");
+        primaryStage.setScene(new Scene(root));
+        primaryStage.show();
     }
 
     public static void main(String[] args) {

@@ -59,27 +59,30 @@ public class OrderDAO {
         }
     }
 
-    // Method to update the status of an order
-    public boolean updateOrderStatus(int id, String status) {
-        String sql = "UPDATE Orders SET status = ? WHERE id = ?";
+    // Method to update the entire order
+    public boolean updateOrder(int id, int userId, String items, double totalPrice, String status) {
+        String sql = "UPDATE Orders SET userId = ?, items = ?, totalPrice = ?, status = ? WHERE id = ?";
 
         try (Connection conn = DatabaseConnection.connect();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
 
-            pstmt.setString(1, status);
-            pstmt.setInt(2, id);
+            pstmt.setInt(1, userId);
+            pstmt.setString(2, items);
+            pstmt.setDouble(3, totalPrice);
+            pstmt.setString(4, status);
+            pstmt.setInt(5, id);
 
             pstmt.executeUpdate();
             return true;
 
         } catch (SQLException e) {
-            System.err.println("Error updating order status: " + e.getMessage());
+            System.err.println("Error updating order: " + e.getMessage());
             return false;
         }
     }
 
     // Method to delete (cancel) an order from the database
-    public boolean cancelOrder(int id) {
+    public boolean deleteOrder(int id) {
         String sql = "DELETE FROM Orders WHERE id = ?";
 
         try (Connection conn = DatabaseConnection.connect();

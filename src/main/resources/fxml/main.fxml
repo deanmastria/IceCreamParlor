@@ -7,4 +7,6 @@
     <Button text="Manage Sales" onAction="#handleSales"/>
     <Button text="Manage Inventory" onAction="#handleInventory"/>
     <Button text="Manage Tables" onAction="#handleTables"/>
+    <Button text="Manage Menu" onAction="#handleMenu"/> <!-- Added Menu Button -->
+    <Button text="Manage Orders" onAction="#handleOrders"/> <!-- Added Orders Button -->
 </VBox>

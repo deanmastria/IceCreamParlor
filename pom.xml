@@ -90,7 +90,7 @@
                     <mainClass>org.example.App</mainClass>
                     <options>
                         <option>--module-path</option>
-                        <option>${java.home}/../lib</option>
+                        <option>C:\Program Files\Java\jdk-11\lib</option>
                         <option>--add-modules=javafx.controls,javafx.fxml</option>
                     </options>
                 </configuration>

@@ -2,27 +2,95 @@ package org.example.utils;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+
 
 public class DataSeeder {
 
     public static void seedRoles(Connection conn) {
-        String[] roles = {"staff", "manager", "cashier", "chef"};
-        String sql = "INSERT INTO Roles(roleName) VALUES(?)";
+        String[] roles = {"staff", "manager"};
+        String sqlInsert = "INSERT INTO Roles(roleName) VALUES(?)";
+        String sqlCheck = "SELECT COUNT(*) FROM Roles WHERE roleName = ?";
 
-        try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
+        try (PreparedStatement pstmtInsert = conn.prepareStatement(sqlInsert);
+             PreparedStatement pstmtCheck = conn.prepareStatement(sqlCheck)) {
+
             for (String role : roles) {
-                pstmt.setString(1, role);
-                pstmt.executeUpdate();
+                pstmtCheck.setString(1, role);
+                ResultSet rs = pstmtCheck.executeQuery();
+                rs.next();
+                int count = rs.getInt(1);
+
+                if (count == 0) {
+                    pstmtInsert.setString(1, role);
+                    pstmtInsert.executeUpdate();
+                    System.out.println("Role '" + role + "' has been seeded.");
+                } else {
+                    System.out.println("Role '" + role + "' already exists.");
+                }
             }
-            System.out.println("Roles data has been seeded.");
         } catch (Exception e) {
             System.err.println("Failed to seed roles data: " + e.getMessage());
         }
     }
 
+    public static void seedUsers(Connection conn) {
+        String sql = "INSERT INTO Users(username, passwordHash, roleId) VALUES(?, ?, ?)";
+
+        try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            // Add staff user
+            String staffPasswordHash = hashPassword("staff123");
+            pstmt.setString(1, "staff");
+            pstmt.setString(2, staffPasswordHash);
+            pstmt.setInt(3, getRoleId(conn, "staff"));
+            pstmt.executeUpdate();
+            System.out.println("Seeded staff password hash: " + staffPasswordHash);
+
+            // Add manager user
+            String managerPasswordHash = hashPassword("manager123");
+            pstmt.setString(1, "manager");
+            pstmt.setString(2, managerPasswordHash);
+            pstmt.setInt(3, getRoleId(conn, "manager"));
+            pstmt.executeUpdate();
+            System.out.println("Seeded manager password hash: " + managerPasswordHash);
+
+            System.out.println("Users data has been seeded.");
+        } catch (Exception e) {
+            System.err.println("Failed to seed users data: " + e.getMessage());
+        }
+    }
+
+    private static int getRoleId(Connection conn, String roleName) {
+        String sql = "SELECT id FROM Roles WHERE roleName = ?";
+        try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            pstmt.setString(1, roleName);
+            var rs = pstmt.executeQuery();
+            if (rs.next()) {
+                return rs.getInt("id");
+            }
+        } catch (Exception e) {
+            System.err.println("Failed to retrieve role ID for " + roleName + ": " + e.getMessage());
+        }
+        return -1; // Return an invalid ID if not found
+    }
+
+    private static String hashPassword(String password) {
+        try {
+            var md = java.security.MessageDigest.getInstance("SHA-256");
+            var bytes = md.digest(password.getBytes());
+            var sb = new StringBuilder();
+            for (byte b : bytes) {
+                sb.append(String.format("%02x", b));
+            }
+            return sb.toString();
+        } catch (Exception e) {
+            throw new RuntimeException("Failed to hash password: " + e.getMessage(), e);
+        }
+    }
+
     public static void seedCategories(Connection conn) {
         String[] categories = {"Ice Cream", "Toppings", "Drinks"};
-        String sql = "INSERT INTO Categories(categoryName) VALUES(?)";
+        String sql = "INSERT INTO Categories(categoryName) VALUES(?)";  // Correct column name
 
         try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
             for (String category : categories) {
@@ -245,27 +313,6 @@ public class DataSeeder {
             System.out.println("Soda menu items seeded.");
         } catch (Exception e) {
             System.err.println("Failed to seed soda menu items: " + e.getMessage());
-        }
-    }
-
-    public static void seedMenuItemIngredients(Connection conn) {
-        String sql = "INSERT INTO MenuItemIngredients(menuItemId, ingredientId, quantityNeeded) VALUES(?, ?, ?)";
-
-        try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
-            // Example: Vanilla Milkshake requires 2 units of Vanilla Ice Cream and 1 unit of Milk
-            pstmt.setInt(1, 1); // Menu Item ID (Vanilla Milkshake)
-            pstmt.setInt(2, 1); // Ingredient ID (Vanilla Ice Cream)
-            pstmt.setInt(3, 2); // Quantity Needed
-            pstmt.executeUpdate();
-
-            pstmt.setInt(1, 1); // Menu Item ID (Vanilla Milkshake)
-            pstmt.setInt(2, 2); // Ingredient ID (Milk)
-            pstmt.setInt(3, 1); // Quantity Needed
-            pstmt.executeUpdate();
-
-            System.out.println("MenuItemIngredients data has been seeded.");
-        } catch (Exception e) {
-            System.err.println("Failed to seed MenuItemIngredients data: " + e.getMessage());
         }
     }
 }

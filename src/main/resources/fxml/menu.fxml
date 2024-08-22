@@ -17,6 +17,8 @@
             <TableColumn fx:id="preparationTimeColumn" text="Preparation Time"/>
             <TableColumn fx:id="priceColumn" text="Price"/>
             <TableColumn fx:id="ingredientsColumn" text="Ingredients"/>
+            <TableColumn fx:id="categoryColumn" text="Category"/>
+
         </columns>
     </TableView>
 
@@ -36,5 +38,7 @@
         <Button text="Add Item" onAction="#handleAddMenuItem"/>
         <Button text="Update Item" onAction="#handleUpdateMenuItem"/>
         <Button text="Delete Item" onAction="#handleDeleteMenuItem"/>
+        <ComboBox fx:id="filterCategoryComboBox" promptText="Filter by Category"/>
+        <Button text="Filter" onAction="#handleFilterByCategory"/>
     </HBox>
 </VBox>

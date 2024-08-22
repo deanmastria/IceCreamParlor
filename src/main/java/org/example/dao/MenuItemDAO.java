@@ -2,6 +2,7 @@ package org.example.dao;
 
 import org.example.model.MenuItem;
 import org.example.utils.DatabaseConnection;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -64,8 +65,8 @@ public class MenuItemDAO {
 
     // Read (Retrieve all menu items by category)
     public List<MenuItem> getMenuItemsByCategory(int categoryId) {
-        String sql = "SELECT * FROM MenuItems WHERE categoryId = ?";
         List<MenuItem> menuItems = new ArrayList<>();
+        String sql = "SELECT * FROM MenuItems WHERE categoryId = ?";
 
         try (Connection conn = DatabaseConnection.connect();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
@@ -84,12 +85,14 @@ public class MenuItemDAO {
                         rs.getInt("categoryId")
                 ));
             }
-
         } catch (SQLException e) {
             System.err.println("Error retrieving menu items by category: " + e.getMessage());
         }
-        return menuItems;  // Return list of menu items (could be empty if no items found)
+        return menuItems;
     }
+
+
+
 
     // Read (Retrieve all menu items)
     public List<MenuItem> getAllMenuItems() {
@@ -159,4 +162,43 @@ public class MenuItemDAO {
             return false;
         }
     }
+
+    // Method to retrieve all categories from the database
+    public List<String> getAllCategories() {
+        List<String> categories = new ArrayList<>();
+        String sql = "SELECT categoryName FROM Categories";
+
+        try (Connection conn = DatabaseConnection.connect();
+             PreparedStatement pstmt = conn.prepareStatement(sql);
+             ResultSet rs = pstmt.executeQuery()) {
+
+            while (rs.next()) {
+                categories.add(rs.getString("categoryName"));
+            }
+
+        } catch (SQLException e) {
+            System.err.println("Error retrieving categories: " + e.getMessage());
+        }
+
+        return categories;
+    }
+
+    // Convert category name to ID (assuming a method that retrieves category ID from the category name)
+    public int getCategoryID(String categoryName) {
+        String sql = "SELECT id FROM Categories WHERE name = ?";
+        try (Connection conn = DatabaseConnection.connect();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+
+            pstmt.setString(1, categoryName);
+            ResultSet rs = pstmt.executeQuery();
+
+            if (rs.next()) {
+                return rs.getInt("id");
+            }
+        } catch (SQLException e) {
+            System.err.println("Error retrieving category ID: " + e.getMessage());
+        }
+        return -1;  // Return -1 if the category is not found
+    }
+
 }

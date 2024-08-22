@@ -28,6 +28,9 @@ public class MenuItemController {
     private ComboBox<String> categoryComboBox;
 
     @FXML
+    private ComboBox<String> filterCategoryComboBox;
+
+    @FXML
     private TableView<MenuItem> menuItemsTableView;
 
     @FXML
@@ -59,13 +62,25 @@ public class MenuItemController {
         // Load menu items into the table view
         loadMenuItems();
 
-        // Initialize the category combo box (example values)
-        categoryComboBox.setItems(FXCollections.observableArrayList("Appetizer", "Main Course", "Dessert"));
+        // Initialize the category combo box with example values (replace with actual categories from database)
+        ObservableList<String> categories = FXCollections.observableArrayList(menuItemDAO.getAllCategories());
+        categoryComboBox.setItems(categories);
+        filterCategoryComboBox.setItems(categories);
     }
 
     private void loadMenuItems() {
         ObservableList<MenuItem> menuItems = FXCollections.observableArrayList(menuItemDAO.getAllMenuItems());
         menuItemsTableView.setItems(menuItems);
+    }
+
+    @FXML
+    private void handleFilterByCategory() {
+        String selectedCategory = filterCategoryComboBox.getSelectionModel().getSelectedItem();
+        if (selectedCategory != null) {
+            int categoryId = menuItemDAO.getCategoryID(selectedCategory); // Convert category name to ID
+            ObservableList<MenuItem> filteredMenuItems = FXCollections.observableArrayList(menuItemDAO.getMenuItemsByCategory(categoryId));
+            menuItemsTableView.setItems(filteredMenuItems);
+        }
     }
 
     @FXML
@@ -76,7 +91,8 @@ public class MenuItemController {
             int preparationTime = Integer.parseInt(preparationTimeTextField.getText());
             double price = Double.parseDouble(priceTextField.getText());
             String ingredients = ingredientsTextArea.getText();
-            int categoryId = categoryComboBox.getSelectionModel().getSelectedIndex() + 1;
+            String selectedCategory = categoryComboBox.getSelectionModel().getSelectedItem();
+            int categoryId = menuItemDAO.getCategoryID(selectedCategory); // Convert category name to ID
 
             boolean success = menuItemDAO.addMenuItem(name, description, preparationTime, price, ingredients, categoryId);
 
@@ -104,7 +120,8 @@ public class MenuItemController {
                 int preparationTime = Integer.parseInt(preparationTimeTextField.getText());
                 double price = Double.parseDouble(priceTextField.getText());
                 String ingredients = ingredientsTextArea.getText();
-                int categoryId = categoryComboBox.getSelectionModel().getSelectedIndex() + 1;
+                String selectedCategory = categoryComboBox.getSelectionModel().getSelectedItem();
+                int categoryId = menuItemDAO.getCategoryID(selectedCategory); // Convert category name to ID
 
                 boolean success = menuItemDAO.updateMenuItem(selectedItem.getId(), name, description, preparationTime, price, ingredients, categoryId);
 

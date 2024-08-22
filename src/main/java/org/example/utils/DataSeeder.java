@@ -5,6 +5,7 @@ import java.sql.PreparedStatement;
 
 public class DataSeeder {
 
+
     public static void seedRoles(Connection conn) {
         String[] roles = {"staff", "manager", "cashier", "chef"};
         String sql = "INSERT INTO Roles(roleName) VALUES(?)";
@@ -22,7 +23,7 @@ public class DataSeeder {
 
     public static void seedCategories(Connection conn) {
         String[] categories = {"Ice Cream", "Toppings", "Drinks"};
-        String sql = "INSERT INTO Categories(categoryName) VALUES(?)";
+        String sql = "INSERT INTO Categories(categoryName) VALUES(?)";  // Correct column name
 
         try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
             for (String category : categories) {

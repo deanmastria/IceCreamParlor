@@ -1,5 +1,6 @@
 package org.example.utils;
 
+import java.io.File;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -11,10 +12,15 @@ public class DatabaseInitializer {
     private static final Logger LOGGER = Logger.getLogger(DatabaseInitializer.class.getName());
 
     public static void initialize() {
+        // Step 1: Delete the existing database file
+        deleteExistingDatabase();
+
         try (Connection conn = DatabaseConnection.connect();
              Statement stmt = conn.createStatement()) {
 
-            // Create necessary tables
+            // Step 2: Create necessary tables in the right order based on their dependencies
+            createCategoriesTable(stmt);  // Create Categories first as it is referenced by MenuItems
+            createRolesTable(stmt);       // Create Roles before Users
             createUsersTable(stmt);
             createMenuItemsTable(stmt);
             createOrdersTable(stmt);
@@ -28,12 +34,42 @@ public class DatabaseInitializer {
         }
     }
 
+    private static void deleteExistingDatabase() {
+        File dbFile = new File("restaurant.db");
+        if (dbFile.exists()) {
+            if (dbFile.delete()) {
+                LOGGER.info("Existing database deleted successfully.");
+            } else {
+                LOGGER.warning("Failed to delete existing database.");
+            }
+        } else {
+            LOGGER.info("No existing database found to delete.");
+        }
+    }
+
+    private static void createCategoriesTable(Statement stmt) throws SQLException {
+        String sql = "CREATE TABLE IF NOT EXISTS Categories (" +
+                "id INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                "categoryName TEXT NOT NULL UNIQUE)";  // Ensure column is named 'categoryName'
+        stmt.execute(sql);
+        LOGGER.info("Categories table created successfully.");
+    }
+
+    private static void createRolesTable(Statement stmt) throws SQLException {
+        String sql = "CREATE TABLE IF NOT EXISTS Roles (" +
+                "id INTEGER PRIMARY KEY AUTOINCREMENT," +
+                "roleName TEXT NOT NULL UNIQUE)";
+        stmt.execute(sql);
+        LOGGER.info("Roles table created successfully.");
+    }
+
     private static void createUsersTable(Statement stmt) throws SQLException {
         String sql = "CREATE TABLE IF NOT EXISTS Users (" +
                 "id INTEGER PRIMARY KEY AUTOINCREMENT," +
                 "username TEXT NOT NULL UNIQUE," +
                 "passwordHash TEXT NOT NULL," +
-                "role TEXT NOT NULL)";
+                "roleId INTEGER," +
+                "FOREIGN KEY (roleId) REFERENCES Roles(id))";
         stmt.execute(sql);
         LOGGER.info("Users table created successfully.");
     }
@@ -43,9 +79,11 @@ public class DatabaseInitializer {
                 "id INTEGER PRIMARY KEY AUTOINCREMENT," +
                 "name TEXT NOT NULL," +
                 "description TEXT," +
-                "preparationTime INTEGER," +
-                "price REAL NOT NULL," +
-                "ingredients TEXT)";
+                "preparationTime INTEGER CHECK(preparationTime > 0)," +
+                "price REAL NOT NULL CHECK(price >= 0)," +
+                "ingredients TEXT," +
+                "categoryId INTEGER NOT NULL," +
+                "FOREIGN KEY (categoryId) REFERENCES Categories(id))";  // Reference Categories table
         stmt.execute(sql);
         LOGGER.info("MenuItems table created successfully.");
     }

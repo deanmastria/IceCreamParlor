@@ -12,7 +12,7 @@ import java.io.IOException;
 public class MainController {
 
     private User currentUser; // Declare currentUser
-
+  
     @FXML
     private Button manageTablesButton;
 
@@ -27,6 +27,7 @@ public class MainController {
 
     @FXML
     private Button manageSalesButton;
+
 
     public void setUser(User user) {
         this.currentUser = user;
@@ -59,6 +60,7 @@ public class MainController {
                 return 2;
             default:
                 return -1;
+
         }
     }
 
@@ -108,5 +110,4 @@ public class MainController {
             // Optionally, show an error dialog
         }
     }
-
 }

@@ -11,6 +11,8 @@ import java.io.IOException;
 
 public class MainController {
 
+    private User currentUser; // Declare currentUser
+  
     @FXML
     private Button manageTablesButton;
 
@@ -26,38 +28,39 @@ public class MainController {
     @FXML
     private Button manageSalesButton;
 
-    private User currentUser;
 
     public void setUser(User user) {
         this.currentUser = user;
-        if (user.getRoleId() == getRoleIdByName("Staff")) {
-            // Hide or disable certain buttons for staff
-            manageTablesButton.setVisible(true);
-            manageOrdersButton.setVisible(true);
-            manageMenuButton.setVisible(true);
-            manageInventoryButton.setVisible(false);
-            manageSalesButton.setVisible(false);
-        } else if (user.getRoleId() == getRoleIdByName("Manager")) {
-            // Manager has access to everything
-            manageTablesButton.setVisible(true);
-            manageOrdersButton.setVisible(true);
-            manageMenuButton.setVisible(true);
-            manageInventoryButton.setVisible(true);
-            manageSalesButton.setVisible(true);
+        System.out.println("User: " + user);
+        if (user != null) {
+            System.out.println("Role ID: " + user.getRoleId());
+            System.out.println("manageTablesButton: " + manageTablesButton);
+
+            if (user.getRoleId() == getRoleIdByName("Staff")) {
+                manageTablesButton.setVisible(true);
+                manageOrdersButton.setVisible(true);
+                manageMenuButton.setVisible(true);
+                manageInventoryButton.setVisible(false);
+                manageSalesButton.setVisible(false);
+            } else if (user.getRoleId() == getRoleIdByName("Manager")) {
+                manageTablesButton.setVisible(true);
+                manageOrdersButton.setVisible(true);
+                manageMenuButton.setVisible(true);
+                manageInventoryButton.setVisible(true);
+                manageSalesButton.setVisible(true);
+            }
         }
     }
 
-    // Helper method to retrieve role ID by role name
     private int getRoleIdByName(String roleName) {
-        // This should return the appropriate role ID based on the roleName.
-        // You would typically retrieve this from your database or a predefined set of constants.
         switch (roleName.toLowerCase()) {
             case "staff":
-                return 1;  // Assuming role ID 1 is for Staff
+                return 1;
             case "manager":
-                return 2;  // Assuming role ID 2 is for Manager
+                return 2;
             default:
-                return -1;  // Unknown role
+                return -1;
+
         }
     }
 
@@ -87,9 +90,24 @@ public class MainController {
             Stage stage = new Stage();
             stage.setScene(new Scene(loader.load()));
             stage.setTitle(title);
+
+            // Get the controller of the loaded FXML
+            Object controller = loader.getController();
+
+            // If the controller is an instance of MainController, pass the current user
+            if (controller instanceof MainController) {
+                MainController mainController = (MainController) controller;
+                mainController.setUser(currentUser);
+            }
+
             stage.show();
+
+            // Optional: Close the current window if needed
+            // Stage currentStage = (Stage) manageTablesButton.getScene().getWindow();
+            // currentStage.close();
         } catch (IOException e) {
             e.printStackTrace();
+            // Optionally, show an error dialog
         }
     }
 }

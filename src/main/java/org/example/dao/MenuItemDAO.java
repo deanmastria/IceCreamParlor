@@ -183,22 +183,46 @@ public class MenuItemDAO {
         return categories;
     }
 
-    // Convert category name to ID (assuming a method that retrieves category ID from the category name)
-    public int getCategoryID(String categoryName) {
-        String sql = "SELECT id FROM Categories WHERE name = ?";
+    // Method to get the category name by category ID
+    public String getCategoryNameById(int categoryId) {
+        String sql = "SELECT categoryName FROM Categories WHERE id = ?";
+        String categoryName = null;
+
         try (Connection conn = DatabaseConnection.connect();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
 
-            pstmt.setString(1, categoryName);
+            pstmt.setInt(1, categoryId);  // Set the categoryId in the query
             ResultSet rs = pstmt.executeQuery();
 
             if (rs.next()) {
-                return rs.getInt("id");
+                categoryName = rs.getString("categoryName");  // Retrieve the category name
+            }
+        } catch (SQLException e) {
+            System.err.println("Error retrieving category name: " + e.getMessage());
+        }
+
+        return categoryName;  // Return the category name or null if not found
+    }
+
+    // Convert category name to ID (assuming a method that retrieves category ID from the category name)
+    // Method to get the category ID by category name (if needed)
+    public int getCategoryID(String categoryName) {
+        String sql = "SELECT id FROM Categories WHERE categoryName = ?";
+        int categoryId = -1;
+
+        try (Connection conn = DatabaseConnection.connect();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+
+            pstmt.setString(1, categoryName);  // Set the categoryName in the query
+            ResultSet rs = pstmt.executeQuery();
+
+            if (rs.next()) {
+                categoryId = rs.getInt("id");  // Retrieve the category ID
             }
         } catch (SQLException e) {
             System.err.println("Error retrieving category ID: " + e.getMessage());
         }
-        return -1;  // Return -1 if the category is not found
-    }
 
+        return categoryId;  // Return the category ID or -1 if not found
+    }
 }

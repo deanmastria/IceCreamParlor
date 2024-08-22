@@ -4,9 +4,9 @@
 <?import javafx.scene.layout.VBox?>
 
 <VBox spacing="20" alignment="CENTER" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.controller.MainController">
-    <Button text="Manage Sales" onAction="#handleSales"/>
-    <Button text="Manage Inventory" onAction="#handleInventory"/>
-    <Button text="Manage Tables" onAction="#handleTables"/>
-    <Button text="Manage Menu" onAction="#handleMenu"/> <!-- Added Menu Button -->
-    <Button text="Manage Orders" onAction="#handleOrders"/> <!-- Added Orders Button -->
+    <Button fx:id="manageTablesButton" text="Manage Tables" onAction="#handleTables"/>
+    <Button fx:id="manageOrdersButton" text="Manage Orders" onAction="#handleOrders"/>
+    <Button fx:id="manageMenuButton" text="Manage Menu" onAction="#handleMenu"/>
+    <Button fx:id="manageInventoryButton" text="Manage Inventory" onAction="#handleInventory"/>
+    <Button fx:id="manageSalesButton" text="Manage Sales" onAction="#handleSales"/>
 </VBox>

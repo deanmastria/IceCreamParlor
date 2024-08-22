@@ -1,70 +1,48 @@
 package org.example.model;
 
-public class Order {
-    private int id;
-    private int userId;
-    private String items;
-    private double totalPrice;
-    private String status;
+import javafx.beans.property.*;
 
-    // Constructor
+public class Order {
+    private final IntegerProperty id;  // This is your order ID
+    private final IntegerProperty userId;
+    private final StringProperty items;
+    private final DoubleProperty totalPrice;
+    private final StringProperty status;
+
     public Order(int id, int userId, String items, double totalPrice, String status) {
-        this.id = id;
-        this.userId = userId;
-        this.items = items;
-        this.totalPrice = totalPrice;
-        this.status = status;
+        this.id = new SimpleIntegerProperty(id);
+        this.userId = new SimpleIntegerProperty(userId);
+        this.items = new SimpleStringProperty(items);
+        this.totalPrice = new SimpleDoubleProperty(totalPrice);
+        this.status = new SimpleStringProperty(status);
     }
 
-    // Getters and Setters
-    public int getId() {
+    // Property methods
+    public IntegerProperty idProperty() {
         return id;
     }
 
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public int getUserId() {
+    public IntegerProperty userIdProperty() {
         return userId;
     }
 
-    public void setUserId(int userId) {
-        this.userId = userId;
-    }
-
-    public String getItems() {
+    public StringProperty itemsProperty() {
         return items;
     }
 
-    public void setItems(String items) {
-        this.items = items;
-    }
-
-    public double getTotalPrice() {
+    public DoubleProperty totalPriceProperty() {
         return totalPrice;
     }
 
-    public void setTotalPrice(double totalPrice) {
-        this.totalPrice = totalPrice;
-    }
-
-    public String getStatus() {
+    public StringProperty statusProperty() {
         return status;
     }
-
-    public void setStatus(String status) {
-        this.status = status;
+    // Getter for ID
+    public int getId() {
+        return id.get();
     }
 
-    @Override
-    public String toString() {
-        return "Order{" +
-                "id=" + id +
-                ", userId=" + userId +
-                ", items='" + items + '\'' +
-                ", totalPrice=" + totalPrice +
-                ", status='" + status + '\'' +
-                '}';
+    public void setId(int id) {
+        this.id.set(id);
     }
 }

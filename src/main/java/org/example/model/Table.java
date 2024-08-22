@@ -1,48 +1,53 @@
 package org.example.model;
 
-public class Table {
-    private int id;
-    private int size;
-    private String status;
+import javafx.beans.property.*;
 
-    // Constructor
+public class Table {
+    private final IntegerProperty id;
+    private final IntegerProperty size;
+    private final StringProperty status;
+
     public Table(int id, int size, String status) {
-        this.id = id;
-        this.size = size;
-        this.status = status;
+        this.id = new SimpleIntegerProperty(id);
+        this.size = new SimpleIntegerProperty(size);
+        this.status = new SimpleStringProperty(status);
+    }
+
+    // Property methods
+    public IntegerProperty idProperty() {
+        return id;
+    }
+
+    public IntegerProperty sizeProperty() {
+        return size;
+    }
+
+    public StringProperty statusProperty() {
+        return status;
     }
 
     // Getters and Setters
     public int getId() {
-        return id;
+        return id.get();
     }
 
     public void setId(int id) {
-        this.id = id;
+        this.id.set(id);
     }
 
     public int getSize() {
-        return size;
+        return size.get();
     }
 
     public void setSize(int size) {
-        this.size = size;
+        this.size.set(size);
     }
 
     public String getStatus() {
-        return status;
+        return status.get();
     }
 
     public void setStatus(String status) {
-        this.status = status;
-    }
-
-    @Override
-    public String toString() {
-        return "Table{" +
-                "id=" + id +
-                ", size=" + size +
-                ", status='" + status + '\'' +
-                '}';
+        this.status.set(status);
     }
 }

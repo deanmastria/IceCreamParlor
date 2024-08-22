@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.layout.HBox?>
+
+<VBox spacing="10" alignment="CENTER" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.controller.MenuItemController">
+    <TableView fx:id="menuTableView">
+        <columns>
+            <TableColumn fx:id="idColumn" text="ID"/>
+            <TableColumn fx:id="nameColumn" text="Name"/>
+            <TableColumn fx:id="descriptionColumn" text="Description"/>
+            <TableColumn fx:id="preparationTimeColumn" text="Preparation Time"/>
+            <TableColumn fx:id="priceColumn" text="Price"/>
+            <TableColumn fx:id="ingredientsColumn" text="Ingredients"/>
+            <TableColumn fx:id="quantityColumn" text="Quantity"/>
+        </columns>
+    </TableView>
+
+    <HBox spacing="10">
+        <TextField fx:id="nameField" promptText="Name"/>
+        <TextField fx:id="descriptionField" promptText="Description"/>
+        <TextField fx:id="preparationTimeField" promptText="Preparation Time"/>
+        <TextField fx:id="priceField" promptText="Price"/>
+        <TextField fx:id="ingredientsField" promptText="Ingredients"/>
+        <TextField fx:id="quantityField" promptText="Quantity"/>
+    </HBox>
+
+    <HBox spacing="10">
+        <Button text="Add Item" onAction="#handleAddMenuItem"/>
+        <Button text="Update Item" onAction="#handleUpdateMenuItem"/>
+        <Button text="Delete Item" onAction="#handleDeleteMenuItem"/>
+    </HBox>
+</VBox>

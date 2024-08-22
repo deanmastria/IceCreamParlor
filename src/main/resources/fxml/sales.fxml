@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.layout.HBox?>
+
+<VBox spacing="10" alignment="CENTER" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.controller.SalesController">
+    <TableView fx:id="salesTableView">
+        <columns>
+            <TableColumn fx:id="saleIdColumn" text="Sale ID" />
+            <TableColumn fx:id="orderIdColumn" text="Order ID" />
+            <TableColumn fx:id="revenueColumn" text="Revenue" />
+            <TableColumn fx:id="dateColumn" text="Date" />
+        </columns>
+    </TableView>
+
+    <HBox spacing="10">
+        <TextField fx:id="orderIdField" promptText="Order ID" />
+        <TextField fx:id="revenueField" promptText="Revenue" />
+    </HBox>
+
+    <HBox spacing="10">
+        <Button text="Add Sale" onAction="#handleAddSale"/>
+        <Button text="Delete Sale" onAction="#handleDeleteSale"/>
+    </HBox>
+</VBox>

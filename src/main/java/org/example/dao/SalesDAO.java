@@ -12,8 +12,8 @@ import java.util.List;
 
 public class SalesDAO {
 
-    // Create (Record a sale)
-    public boolean recordSale(int orderId, double revenue, String date) {
+    // Method to add a new sale record to the database
+    public boolean addSale(int orderId, double revenue, String date) {
         String sql = "INSERT INTO Sales(orderId, revenue, date) VALUES(?, ?, ?)";
 
         try (Connection conn = DatabaseConnection.connect();
@@ -23,44 +23,62 @@ public class SalesDAO {
             pstmt.setDouble(2, revenue);
             pstmt.setString(3, date);
 
-            int rowsAffected = pstmt.executeUpdate();
-            return rowsAffected > 0;  // Return true if the sale was successfully recorded
+            pstmt.executeUpdate();
+            return true;
 
         } catch (SQLException e) {
-            System.err.println("Error recording sale: " + e.getMessage());
+            System.err.println("Error adding sale: " + e.getMessage());
             return false;
         }
     }
 
-    // Read (Retrieve a sale by ID)
-    public Sale getSaleById(int id) {
-        String sql = "SELECT * FROM Sales WHERE id = ?";
+    // Method to retrieve all sales records from the database
+    public List<Sale> getAllSales() {
+        List<Sale> sales = new ArrayList<>();
+        String sql = "SELECT * FROM Sales";
+
+        try (Connection conn = DatabaseConnection.connect();
+             PreparedStatement pstmt = conn.prepareStatement(sql);
+             ResultSet rs = pstmt.executeQuery()) {
+
+            while (rs.next()) {
+                sales.add(new Sale(
+                        rs.getInt("id"),
+                        rs.getInt("orderId"),
+                        rs.getDouble("revenue"),
+                        rs.getString("date")
+                ));
+            }
+
+        } catch (SQLException e) {
+            System.err.println("Error retrieving sales: " + e.getMessage());
+        }
+
+        return sales;
+    }
+
+    // Method to delete a sale record from the database
+    public boolean deleteSale(int id) {
+        String sql = "DELETE FROM Sales WHERE id = ?";
 
         try (Connection conn = DatabaseConnection.connect();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
 
             pstmt.setInt(1, id);
-            ResultSet rs = pstmt.executeQuery();
 
-            if (rs.next()) {
-                return new Sale(
-                        rs.getInt("id"),
-                        rs.getInt("orderId"),
-                        rs.getDouble("revenue"),
-                        rs.getString("date")
-                );
-            }
+            pstmt.executeUpdate();
+            return true;
 
         } catch (SQLException e) {
-            System.err.println("Error retrieving sale: " + e.getMessage());
+            System.err.println("Error deleting sale: " + e.getMessage());
+            return false;
         }
-        return null;  // Return null if the sale is not found
     }
 
-    // Read (Retrieve all sales by date)
+    // Method to retrieve sales for a specific date
     public List<Sale> getSalesByDate(String date) {
-        String sql = "SELECT * FROM Sales WHERE date = ?";
         List<Sale> sales = new ArrayList<>();
+        String sql = "SELECT * FROM Sales WHERE date = ?";
 
         try (Connection conn = DatabaseConnection.connect();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
@@ -80,48 +98,9 @@ public class SalesDAO {
         } catch (SQLException e) {
             System.err.println("Error retrieving sales by date: " + e.getMessage());
         }
-        return sales;  // Return list of sales (could be empty if no sales found)
+
+        return sales;
     }
 
-    // Read (Retrieve all sales)
-    public List<Sale> getAllSales() {
-        String sql = "SELECT * FROM Sales";
-        List<Sale> sales = new ArrayList<>();
-
-        try (Connection conn = DatabaseConnection.connect();
-             PreparedStatement pstmt = conn.prepareStatement(sql);
-             ResultSet rs = pstmt.executeQuery()) {
-
-            while (rs.next()) {
-                sales.add(new Sale(
-                        rs.getInt("id"),
-                        rs.getInt("orderId"),
-                        rs.getDouble("revenue"),
-                        rs.getString("date")
-                ));
-            }
-
-        } catch (SQLException e) {
-            System.err.println("Error retrieving all sales: " + e.getMessage());
-        }
-        return sales;  // Return list of sales
-    }
-
-    // Delete (Delete a sale)
-    public boolean deleteSale(int id) {
-        String sql = "DELETE FROM Sales WHERE id = ?";
-
-        try (Connection conn = DatabaseConnection.connect();
-             PreparedStatement pstmt = conn.prepareStatement(sql)) {
-
-            pstmt.setInt(1, id);
-
-            int rowsAffected = pstmt.executeUpdate();
-            return rowsAffected > 0;  // Return true if the sale was successfully deleted
-
-        } catch (SQLException e) {
-            System.err.println("Error deleting sale: " + e.getMessage());
-            return false;
-        }
-    }
+    // Additional methods to generate sales reports can be added here...
 }

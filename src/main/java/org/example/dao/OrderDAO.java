@@ -12,63 +12,14 @@ import java.util.List;
 
 public class OrderDAO {
 
-    // Create (Place a new order)
-    public boolean placeOrder(int userId, String items, double totalPrice, String status) {
-        String sql = "INSERT INTO Orders(userId, items, totalPrice, status) VALUES(?, ?, ?, ?)";
-
-        try (Connection conn = DatabaseConnection.connect();
-             PreparedStatement pstmt = conn.prepareStatement(sql)) {
-
-            pstmt.setInt(1, userId);
-            pstmt.setString(2, items);
-            pstmt.setDouble(3, totalPrice);
-            pstmt.setString(4, status);
-
-            int rowsAffected = pstmt.executeUpdate();
-            return rowsAffected > 0;  // Return true if the order was successfully placed
-
-        } catch (SQLException e) {
-            System.err.println("Error placing order: " + e.getMessage());
-            return false;
-        }
-    }
-
-    // Read (Retrieve an order by ID)
-    public Order getOrderById(int id) {
-        String sql = "SELECT * FROM Orders WHERE id = ?";
-
-        try (Connection conn = DatabaseConnection.connect();
-             PreparedStatement pstmt = conn.prepareStatement(sql)) {
-
-            pstmt.setInt(1, id);
-            ResultSet rs = pstmt.executeQuery();
-
-            if (rs.next()) {
-                return new Order(
-                        rs.getInt("id"),
-                        rs.getInt("userId"),
-                        rs.getString("items"),
-                        rs.getDouble("totalPrice"),
-                        rs.getString("status")
-                );
-            }
-
-        } catch (SQLException e) {
-            System.err.println("Error retrieving order: " + e.getMessage());
-        }
-        return null;  // Return null if the order is not found
-    }
-
-    // Read (Retrieve all orders by status)
-    public List<Order> getOrdersByStatus(String status) {
-        String sql = "SELECT * FROM Orders WHERE status = ?";
+    // Method to retrieve all orders from the database
+    public List<Order> getAllOrders() {
         List<Order> orders = new ArrayList<>();
+        String sql = "SELECT * FROM Orders";
 
         try (Connection conn = DatabaseConnection.connect();
-             PreparedStatement pstmt = conn.prepareStatement(sql)) {
-
-            pstmt.setString(1, status);
-            ResultSet rs = pstmt.executeQuery();
+             PreparedStatement pstmt = conn.prepareStatement(sql);
+             ResultSet rs = pstmt.executeQuery()) {
 
             while (rs.next()) {
                 orders.add(new Order(
@@ -81,12 +32,34 @@ public class OrderDAO {
             }
 
         } catch (SQLException e) {
-            System.err.println("Error retrieving orders by status: " + e.getMessage());
+            System.err.println("Error retrieving orders: " + e.getMessage());
         }
-        return orders;  // Return list of orders (could be empty if no orders found)
+
+        return orders;
     }
 
-    // Update (Update the status of an order)
+    // Method to add a new order to the database
+    public boolean addOrder(int userId, String items, double totalPrice, String status) {
+        String sql = "INSERT INTO Orders(userId, items, totalPrice, status) VALUES(?, ?, ?, ?)";
+
+        try (Connection conn = DatabaseConnection.connect();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+
+            pstmt.setInt(1, userId);
+            pstmt.setString(2, items);
+            pstmt.setDouble(3, totalPrice);
+            pstmt.setString(4, status);
+
+            pstmt.executeUpdate();
+            return true;
+
+        } catch (SQLException e) {
+            System.err.println("Error adding order: " + e.getMessage());
+            return false;
+        }
+    }
+
+    // Method to update the status of an order
     public boolean updateOrderStatus(int id, String status) {
         String sql = "UPDATE Orders SET status = ? WHERE id = ?";
 
@@ -96,8 +69,8 @@ public class OrderDAO {
             pstmt.setString(1, status);
             pstmt.setInt(2, id);
 
-            int rowsAffected = pstmt.executeUpdate();
-            return rowsAffected > 0;  // Return true if the order status was successfully updated
+            pstmt.executeUpdate();
+            return true;
 
         } catch (SQLException e) {
             System.err.println("Error updating order status: " + e.getMessage());
@@ -105,7 +78,7 @@ public class OrderDAO {
         }
     }
 
-    // Delete (Cancel an order)
+    // Method to delete (cancel) an order from the database
     public boolean cancelOrder(int id) {
         String sql = "DELETE FROM Orders WHERE id = ?";
 
@@ -113,13 +86,40 @@ public class OrderDAO {
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
 
             pstmt.setInt(1, id);
-
-            int rowsAffected = pstmt.executeUpdate();
-            return rowsAffected > 0;  // Return true if the order was successfully canceled
+            pstmt.executeUpdate();
+            return true;
 
         } catch (SQLException e) {
             System.err.println("Error canceling order: " + e.getMessage());
             return false;
         }
+    }
+
+    // Method to retrieve an order by its ID
+    public Order getOrderById(int id) {
+        String sql = "SELECT * FROM Orders WHERE id = ?";
+        Order order = null;
+
+        try (Connection conn = DatabaseConnection.connect();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+
+            pstmt.setInt(1, id);
+            ResultSet rs = pstmt.executeQuery();
+
+            if (rs.next()) {
+                order = new Order(
+                        rs.getInt("id"),
+                        rs.getInt("userId"),
+                        rs.getString("items"),
+                        rs.getDouble("totalPrice"),
+                        rs.getString("status")
+                );
+            }
+
+        } catch (SQLException e) {
+            System.err.println("Error retrieving order: " + e.getMessage());
+        }
+
+        return order;
     }
 }

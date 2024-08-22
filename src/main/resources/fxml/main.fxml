@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.layout.VBox?>
+
+<VBox spacing="20" alignment="CENTER" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.controller.MainController">
+    <Button text="Manage Sales" onAction="#handleSales"/>
+    <Button text="Manage Inventory" onAction="#handleInventory"/>
+    <Button text="Manage Tables" onAction="#handleTables"/>
+</VBox>

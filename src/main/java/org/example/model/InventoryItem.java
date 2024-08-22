@@ -1,49 +1,53 @@
 package org.example.model;
 
-public class InventoryItem {
-    private int id;
-    private String ingredientName;
-    private int quantity;
+import javafx.beans.property.*;
 
-    // Constructor
+public class InventoryItem {
+    private final IntegerProperty id;
+    private final StringProperty ingredientName;
+    private final IntegerProperty quantity;
+
     public InventoryItem(int id, String ingredientName, int quantity) {
-        this.id = id;
-        this.ingredientName = ingredientName;
-        this.quantity = quantity;
+        this.id = new SimpleIntegerProperty(id);
+        this.ingredientName = new SimpleStringProperty(ingredientName);
+        this.quantity = new SimpleIntegerProperty(quantity);
+    }
+
+    // Property methods
+    public IntegerProperty idProperty() {
+        return id;
+    }
+
+    public StringProperty ingredientNameProperty() {
+        return ingredientName;
+    }
+
+    public IntegerProperty quantityProperty() {
+        return quantity;
     }
 
     // Getters and Setters
     public int getId() {
-        return id;
+        return id.get();
     }
 
     public void setId(int id) {
-        this.id = id;
+        this.id.set(id);
     }
 
     public String getIngredientName() {
-        return ingredientName;
+        return ingredientName.get();
     }
 
     public void setIngredientName(String ingredientName) {
-        this.ingredientName = ingredientName;
+        this.ingredientName.set(ingredientName);
     }
 
     public int getQuantity() {
-        return quantity;
+        return quantity.get();
     }
 
     public void setQuantity(int quantity) {
-        this.quantity = quantity;
-    }
-
-    @Override
-    public String toString() {
-        return "InventoryItem{" +
-                "id=" + id +
-                ", ingredientName='" + ingredientName + '\'' +
-                ", quantity=" + quantity +
-                '}';
+        this.quantity.set(quantity);
     }
 }
-

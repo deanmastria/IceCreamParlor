@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.layout.HBox?>
+
+<VBox spacing="10" alignment="CENTER" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.controller.TableController">
+    <TableView fx:id="tableTableView">
+        <columns>
+            <TableColumn fx:id="idColumn" text="Table ID" />
+            <TableColumn fx:id="sizeColumn" text="Size" />
+            <TableColumn fx:id="statusColumn" text="Status" />
+        </columns>
+    </TableView>
+
+    <HBox spacing="10">
+        <TextField fx:id="sizeField" promptText="Size" />
+        <TextField fx:id="statusField" promptText="Status" />
+    </HBox>
+
+    <HBox spacing="10">
+        <Button text="Add Table" onAction="#handleAddTable"/>
+        <Button text="Update Table" onAction="#handleUpdateTable"/>
+        <Button text="Delete Table" onAction="#handleDeleteTable"/>
+    </HBox>
+</VBox>

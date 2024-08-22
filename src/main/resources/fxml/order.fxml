@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.layout.HBox?>
+
+<VBox spacing="10" alignment="CENTER" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.controller.OrderController">
+    <TableView fx:id="orderTableView">
+        <columns>
+            <TableColumn fx:id="orderIdColumn" text="Order ID"/>
+            <TableColumn fx:id="userIdColumn" text="User ID"/>
+            <TableColumn fx:id="itemsColumn" text="Items"/>
+            <TableColumn fx:id="totalPriceColumn" text="Total Price"/>
+            <TableColumn fx:id="statusColumn" text="Status"/>
+        </columns>
+    </TableView>
+
+    <HBox spacing="10">
+        <TextField fx:id="userIdField" promptText="User ID"/>
+        <TextField fx:id="itemsField" promptText="Items"/>
+        <TextField fx:id="totalPriceField" promptText="Total Price"/>
+        <TextField fx:id="statusField" promptText="Status"/>
+    </HBox>
+
+    <HBox spacing="10">
+        <Button text="Add Order" onAction="#handleAddOrder"/>
+        <Button text="Update Order" onAction="#handleUpdateOrder"/>
+        <Button text="Delete Order" onAction="#handleDeleteOrder"/>
+    </HBox>
+</VBox>

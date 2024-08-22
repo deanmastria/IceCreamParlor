@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.layout.HBox?>
+
+<VBox spacing="10" alignment="CENTER" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.controller.InventoryController">
+    <TableView fx:id="inventoryTableView">
+        <columns>
+            <TableColumn fx:id="idColumn" text="ID" />
+            <TableColumn fx:id="ingredientNameColumn" text="Ingredient Name" />
+            <TableColumn fx:id="quantityColumn" text="Quantity" />
+        </columns>
+    </TableView>
+
+    <HBox spacing="10">
+        <TextField fx:id="ingredientNameField" promptText="Ingredient Name" />
+        <TextField fx:id="quantityField" promptText="Quantity" />
+    </HBox>
+
+    <HBox spacing="10">
+        <Button text="Add Item" onAction="#handleAddInventoryItem"/>
+        <Button text="Update Item" onAction="#handleUpdateInventoryItem"/>
+        <Button text="Delete Item" onAction="#handleDeleteInventoryItem"/>
+    </HBox>
+</VBox>

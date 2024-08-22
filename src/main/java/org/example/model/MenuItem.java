@@ -1,92 +1,110 @@
 package org.example.model;
 
-public class MenuItem {
-    private int id;
-    private String name;
-    private String description;
-    private int preparationTime;
-    private double price;
-    private String ingredients;
-    private int categoryId;
+import javafx.beans.property.*;
 
-    // Constructor
-    public MenuItem(int id, String name, String description, int preparationTime, double price, String ingredients, int categoryId) {
-        this.id = id;
-        this.name = name;
-        this.description = description;
-        this.preparationTime = preparationTime;
-        this.price = price;
-        this.ingredients = ingredients;
-        this.categoryId = categoryId;
+public class MenuItem {
+    private final IntegerProperty id;
+    private final StringProperty name;
+    private final StringProperty description;
+    private final IntegerProperty preparationTime;
+    private final DoubleProperty price;
+    private final StringProperty ingredients;
+    private final IntegerProperty quantity; // Extra integer parameter
+
+    // Updated constructor with the extra integer parameter
+    public MenuItem(int id, String name, String description, int preparationTime, double price, String ingredients, int quantity) {
+        this.id = new SimpleIntegerProperty(id);
+        this.name = new SimpleStringProperty(name);
+        this.description = new SimpleStringProperty(description);
+        this.preparationTime = new SimpleIntegerProperty(preparationTime);
+        this.price = new SimpleDoubleProperty(price);
+        this.ingredients = new SimpleStringProperty(ingredients);
+        this.quantity = new SimpleIntegerProperty(quantity);  // Initialize the extra parameter
+    }
+
+    // Property methods
+    public IntegerProperty idProperty() {
+        return id;
+    }
+
+    public StringProperty nameProperty() {
+        return name;
+    }
+
+    public StringProperty descriptionProperty() {
+        return description;
+    }
+
+    public IntegerProperty preparationTimeProperty() {
+        return preparationTime;
+    }
+
+    public DoubleProperty priceProperty() {
+        return price;
+    }
+
+    public StringProperty ingredientsProperty() {
+        return ingredients;
+    }
+
+    public IntegerProperty quantityProperty() {
+        return quantity;
     }
 
     // Getters and Setters
     public int getId() {
-        return id;
+        return id.get();
     }
 
     public void setId(int id) {
-        this.id = id;
+        this.id.set(id);
     }
 
     public String getName() {
-        return name;
+        return name.get();
     }
 
     public void setName(String name) {
-        this.name = name;
+        this.name.set(name);
     }
 
     public String getDescription() {
-        return description;
+        return description.get();
     }
 
     public void setDescription(String description) {
-        this.description = description;
+        this.description.set(description);
     }
 
     public int getPreparationTime() {
-        return preparationTime;
+        return preparationTime.get();
     }
 
     public void setPreparationTime(int preparationTime) {
-        this.preparationTime = preparationTime;
+        this.preparationTime.set(preparationTime);
     }
 
     public double getPrice() {
-        return price;
+        return price.get();
     }
 
     public void setPrice(double price) {
-        this.price = price;
+        this.price.set(price);
     }
 
     public String getIngredients() {
-        return ingredients;
+        return ingredients.get();
     }
 
     public void setIngredients(String ingredients) {
-        this.ingredients = ingredients;
+        this.ingredients.set(ingredients);
     }
 
-    public int getCategoryId() {
-        return categoryId;
+    public int getQuantity() {
+        return quantity.get();
     }
 
-    public void setCategoryId(int categoryId) {
-        this.categoryId = categoryId;
-    }
-
-    @Override
-    public String toString() {
-        return "MenuItem{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", description='" + description + '\'' +
-                ", preparationTime=" + preparationTime +
-                ", price=" + price +
-                ", ingredients='" + ingredients + '\'' +
-                ", categoryId=" + categoryId +
-                '}';
+    public void setQuantity(int quantity) {
+        this.quantity.set(quantity);
     }
 }

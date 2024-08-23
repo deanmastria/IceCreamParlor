@@ -53,6 +53,7 @@ public class DatabaseInitializer {
         createTablesTable(stmt);
         createInventoryTable(stmt);
         createSalesTable(stmt);
+        createCustomersTable(stmt);  // Add this line to create the Customers table
         LOGGER.info("All tables created successfully.");
     }
 
@@ -62,7 +63,7 @@ public class DatabaseInitializer {
         DataSeeder.seedTables(conn);
         DataSeeder.seedInventory(conn);
         DataSeeder.seedMenuItems(conn);
-//        DataSeeder.seedMenuItemIngredients(conn);
+        // DataSeeder.seedMenuItemIngredients(conn);
     }
 
     // All table creation methods remain the same
@@ -108,10 +109,12 @@ public class DatabaseInitializer {
         String sql = "CREATE TABLE IF NOT EXISTS Orders (" +
                 "id INTEGER PRIMARY KEY AUTOINCREMENT," +
                 "userId INTEGER NOT NULL," +
+                "customerId INTEGER NOT NULL," +  // Added customerId to Orders table
                 "items TEXT NOT NULL," +
                 "totalPrice REAL NOT NULL," +
                 "status TEXT NOT NULL," +
-                "FOREIGN KEY (userId) REFERENCES Users(id))";
+                "FOREIGN KEY (userId) REFERENCES Users(id)," +
+                "FOREIGN KEY (customerId) REFERENCES Customers(id))";  // Added foreign key for customerId
         stmt.execute(sql);
     }
 
@@ -138,6 +141,14 @@ public class DatabaseInitializer {
                 "revenue REAL NOT NULL," +
                 "date TEXT NOT NULL," +
                 "FOREIGN KEY (orderId) REFERENCES Orders(id))";
+        stmt.execute(sql);
+    }
+
+    private static void createCustomersTable(Statement stmt) throws SQLException {  // Added method to create Customers table
+        String sql = "CREATE TABLE IF NOT EXISTS Customers (" +
+                "id INTEGER PRIMARY KEY AUTOINCREMENT," +
+                "name TEXT NOT NULL," +
+                "email TEXT NOT NULL UNIQUE)";
         stmt.execute(sql);
     }
 }

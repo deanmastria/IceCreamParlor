@@ -4,7 +4,20 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="01ee3b96-04a7-4d83-be8a-2af5d7e1fa87" name="Changes" comment="most recent changes" />
+    <list default="true" id="01ee3b96-04a7-4d83-be8a-2af5d7e1fa87" name="Changes" comment="DONE">
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/controller/InventoryController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/controller/InventoryController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/controller/LoginController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/controller/LoginController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/controller/MenuItemController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/controller/MenuItemController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/controller/OrderController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/controller/OrderController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/controller/SalesController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/controller/SalesController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/controller/TableController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/controller/TableController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/dao/InventoryDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/InventoryDAO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/dao/MenuItemDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/MenuItemDAO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/dao/OrderDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/OrderDAO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/dao/SalesDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/SalesDAO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/dao/TableDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/TableDAO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/dao/UserDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/UserDAO.java" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -13,13 +26,19 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="FxmlFile" />
         <option value="Class" />
+        <option value="FxmlFile" />
       </list>
     </option>
   </component>
   <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="master" />
+      </map>
+    </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+    <option name="RESET_MODE" value="MIXED" />
   </component>
   <component name="GitHubPullRequestSearchHistory">{
   &quot;lastFilter&quot;: {
@@ -48,8 +67,9 @@
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
     "Application.MainApp.executor": "Run",
+    "JUnit.MenuItemTests.executor": "Run",
     "RunOnceActivity.ShowReadmeOnStart": "true",
-    "git-widget-placeholder": "master",
+    "git-widget-placeholder": "test",
     "kotlin-language-version-configured": "true",
     "last_opened_file_path": "C:/Users/deanm/IdeaProjects/test",
     "node.js.detected.package.eslint": "true",
@@ -66,7 +86,7 @@
     ]
   }
 }]]></component>
-  <component name="RunManager">
+  <component name="RunManager" selected="Application.MainApp">
     <configuration name="MainApp" type="Application" factoryName="Application">
       <option name="MAIN_CLASS_NAME" value="org.example.MainApp" />
       <module name="test" />
@@ -75,6 +95,26 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="MenuItemTests" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="test" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="org.example.dao.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="org.example" />
+      <option name="MAIN_CLASS_NAME" value="org.example.MenuItemTests" />
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="JUnit.MenuItemTests" />
+      </list>
+    </recent_temporary>
   </component>
   <component name="SharedIndexes">
     <attachedChunks>
@@ -96,6 +136,7 @@
       <workItem from="1724305196126" duration="4950000" />
       <workItem from="1724310709618" duration="3981000" />
       <workItem from="1724329183285" duration="17901000" />
+      <workItem from="1724416868362" duration="17409000" />
     </task>
     <task id="LOCAL-00001" summary="start over">
       <option name="closed" value="true" />
@@ -161,11 +202,70 @@
       <option name="project" value="LOCAL" />
       <updated>1724355233496</updated>
     </task>
-    <option name="localTasksCounter" value="9" />
+    <task id="LOCAL-00009" summary="most recent changes">
+      <option name="closed" value="true" />
+      <created>1724416948688</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1724416948688</updated>
+    </task>
+    <task id="LOCAL-00010" summary="most recent changes">
+      <option name="closed" value="true" />
+      <created>1724417894162</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1724417894162</updated>
+    </task>
+    <task id="LOCAL-00011" summary="most recent changes">
+      <option name="closed" value="true" />
+      <created>1724418545675</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1724418545675</updated>
+    </task>
+    <task id="LOCAL-00012" summary="Most up to date, add sales button to go">
+      <option name="closed" value="true" />
+      <created>1724430574202</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1724430574202</updated>
+    </task>
+    <task id="LOCAL-00013" summary="DONE">
+      <option name="closed" value="true" />
+      <created>1724431533783</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1724431533783</updated>
+    </task>
+    <task id="LOCAL-00014" summary="DONE">
+      <option name="closed" value="true" />
+      <created>1724439278388</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1724439278388</updated>
+    </task>
+    <option name="localTasksCounter" value="15" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="start over" />
@@ -174,6 +274,8 @@
     <MESSAGE value="all buttons work, merging code with fish" />
     <MESSAGE value="copied fishes changes, missing user in models" />
     <MESSAGE value="most recent changes" />
+    <MESSAGE value="Most up to date, add sales button to go" />
+    <MESSAGE value="DONE" />
     <option name="LAST_COMMIT_MESSAGE" value="most recent changes" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">

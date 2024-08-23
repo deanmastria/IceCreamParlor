@@ -66,10 +66,12 @@ public class TableCreation {
         String sql = "CREATE TABLE IF NOT EXISTS Orders (" +
                 "id INTEGER PRIMARY KEY AUTOINCREMENT," +
                 "userId INTEGER NOT NULL," +
+                "customerId INTEGER," +
                 "items TEXT NOT NULL," +
                 "totalPrice REAL NOT NULL CHECK(totalPrice >= 0)," +
                 "status TEXT NOT NULL CHECK(status IN ('waiting', 'preparing', 'ready'))," +
-                "FOREIGN KEY (userId) REFERENCES Users(id))";
+                "FOREIGN KEY (userId) REFERENCES Users(id)," +
+                "FOREIGN KEY (customerId) REFERENCES Customers(customerId))";
         try {
             stmt.execute(sql);
             System.out.println("Orders table created successfully.");
@@ -77,6 +79,8 @@ public class TableCreation {
             System.err.println("Error creating Orders table: " + e.getMessage());
         }
     }
+
+
 
     public static void createTablesTable(Statement stmt) {
         String sql = "CREATE TABLE IF NOT EXISTS Tables (" +
@@ -134,4 +138,20 @@ public class TableCreation {
             System.err.println("Error creating MenuItemIngredients table: " + e.getMessage());
         }
     }
+
+    public static void createCustomersTable(Statement stmt) {
+        String sql = "CREATE TABLE IF NOT EXISTS Customers (" +
+                "customerId INTEGER PRIMARY KEY AUTOINCREMENT," +
+                "name TEXT NOT NULL," +
+                "email TEXT)";
+        try {
+            stmt.execute(sql);
+            System.out.println("Customers table created successfully.");
+        } catch (SQLException e) {
+            System.err.println("Error creating Customers table: " + e.getMessage());
+        }
+    }
+
+
+
 }

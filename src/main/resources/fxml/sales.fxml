@@ -20,11 +20,12 @@
     <HBox spacing="10">
         <TextField fx:id="orderIdField" promptText="Order ID" />
         <TextField fx:id="revenueField" promptText="Revenue" />
+        <TextField fx:id="dateField" promptText="Date (YYYY-MM-DD)" />
     </HBox>
 
     <HBox spacing="10">
-<!--        <Button text="Add Sale" onAction="#handleAddSale"/>-->
-<!--        <Button text="Delete Sale" onAction="#handleDeleteSale"/>-->
+        <Button text="Add Sale" onAction="#handleAddSale"/>
+        <Button text="Delete Sale" onAction="#handleDeleteSale"/>
         <Button text="Generate Sales Report" onAction="#handleGenerateSalesReport"/>
     </HBox>
 </VBox>

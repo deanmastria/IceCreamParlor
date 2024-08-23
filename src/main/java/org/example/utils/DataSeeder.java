@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
+import java.sql.SQLException;
 
 public class DataSeeder {
 
@@ -313,6 +314,24 @@ public class DataSeeder {
             System.out.println("Soda menu items seeded.");
         } catch (Exception e) {
             System.err.println("Failed to seed soda menu items: " + e.getMessage());
+        }
+    }
+
+    public static void seedCustomers(Connection conn) {
+        String sql = "INSERT INTO Customers(name, email) VALUES(?, ?)";
+
+        try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            pstmt.setString(1, "John Doe");
+            pstmt.setString(2, "john@example.com");
+            pstmt.executeUpdate();
+
+            pstmt.setString(1, "Jane Doe");
+            pstmt.setString(2, "jane@example.com");
+            pstmt.executeUpdate();
+
+            System.out.println("Customers data has been seeded.");
+        } catch (SQLException e) {
+            System.err.println("Failed to seed customers data: " + e.getMessage());
         }
     }
 }

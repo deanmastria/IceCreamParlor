@@ -26,6 +26,11 @@
     </HBox>
 
     <HBox spacing="10">
+        <TextField fx:id="customerNameField" promptText="Customer Name"/>
+        <TextField fx:id="customerEmailField" promptText="Customer Email"/>
+    </HBox>
+
+    <HBox spacing="10">
         <Button text="Add Order" onAction="#handleAddOrder"/>
         <Button text="Update Order" onAction="#handleUpdateOrder"/>
         <Button text="Delete Order" onAction="#handleDeleteOrder"/>

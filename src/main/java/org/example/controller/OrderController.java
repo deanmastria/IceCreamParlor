@@ -4,12 +4,15 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import org.example.dao.InventoryDAO;
+import org.example.dao.MenuItemDAO;
 import org.example.dao.OrderDAO;
 import org.example.dao.TableDAO;
+import org.example.model.InventoryItem;
+import org.example.model.MenuItem;
 import org.example.model.Order;
 import org.example.model.Table;
 import org.example.utils.TicketGenerator;
@@ -77,13 +80,38 @@ public class OrderController {
             boolean success = orderDAO.addOrder(userId, items, totalPrice, status);
 
             if (success) {
-                showAlert(Alert.AlertType.INFORMATION, "Success", "Order added successfully.");
+                updateInventoryAfterOrder(items);  // Update inventory
+                showAlert(Alert.AlertType.INFORMATION, "Success", "Order added and inventory updated successfully.");
                 loadOrders();  // Refresh table view
             } else {
                 showAlert(Alert.AlertType.ERROR, "Error", "Failed to add order.");
             }
         } catch (Exception e) {
             showAlert(Alert.AlertType.ERROR, "Error", "An unexpected error occurred.");
+        }
+    }
+
+    private void updateInventoryAfterOrder(String items) {
+        InventoryDAO inventoryDAO = new InventoryDAO();
+        String[] orderedItems = items.split(",");  // Assuming items are comma-separated
+
+        for (String item : orderedItems) {
+            MenuItemDAO menuItemDAO = new MenuItemDAO();
+            MenuItem menuItem = menuItemDAO.getMenuItemByName(item.trim());
+
+            if (menuItem != null) {
+                String[] ingredients = menuItem.getIngredients().split(",");  // Assuming ingredients are comma-separated
+                for (String ingredient : ingredients) {
+                    InventoryItem inventoryItem = inventoryDAO.getInventoryItemByName(ingredient.trim());
+
+                    if (inventoryItem != null) {
+                        // Decrease inventory quantity by 1 (or by a specific amount based on your logic)
+                        int newQuantity = inventoryItem.getQuantity() - 1;
+                        if (newQuantity < 0) newQuantity = 0;  // Prevent negative quantities
+                        inventoryDAO.updateInventoryItemQuantity(inventoryItem.getId(), newQuantity);
+                    }
+                }
+            }
         }
     }
 
@@ -128,13 +156,6 @@ public class OrderController {
         }
     }
 
-    private void showAlert(Alert.AlertType alertType, String title, String message) {
-        Alert alert = new Alert(alertType);
-        alert.setTitle(title);
-        alert.setContentText(message);
-        alert.showAndWait();
-    }
-
     @FXML
     private void handleSeatCustomerAndCreateOrder() {
         TableDAO tableDAO = new TableDAO();
@@ -156,6 +177,7 @@ public class OrderController {
             boolean success = orderDAO.addOrderWithTable(userId, items, totalPrice, status, assignedTable.getId(), ticketNumber);
 
             if (success) {
+                updateInventoryAfterOrder(items);  // Update inventory after creating the order
                 showAlert(Alert.AlertType.INFORMATION, "Success", "Customer seated at table " + assignedTable.getId() + " and order created.");
                 loadOrders();  // Refresh the order list
             } else {
@@ -164,5 +186,12 @@ public class OrderController {
         } else {
             showAlert(Alert.AlertType.WARNING, "No Tables Available", "There are no available tables.");
         }
+    }
+
+    private void showAlert(Alert.AlertType alertType, String title, String message) {
+        Alert alert = new Alert(alertType);
+        alert.setTitle(title);
+        alert.setContentText(message);
+        alert.showAndWait();
     }
 }

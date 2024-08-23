@@ -31,7 +31,7 @@ class MenuItemDAOTest {
         mockResultSet = mock(ResultSet.class);
 
         // Mock the connection setup
-        doReturn(mockConnection).when(DatabaseConnection.class, "connect");  // Mock static method if needed
+        doReturn(mockConnection).when(DatabaseConnection.class);  // Mock static method if needed
         when(mockConnection.prepareStatement(anyString())).thenReturn(mockPreparedStatement);
     }
 

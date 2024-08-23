@@ -125,4 +125,27 @@ public class OrderDAO {
 
         return order;
     }
+
+    // Method to add a new order with table information and ticket number to the database
+    public boolean addOrderWithTable(int userId, String items, double totalPrice, String status, int tableId, String ticketNumber) {
+        String sql = "INSERT INTO Orders(userId, items, totalPrice, status, tableId, ticketNumber) VALUES(?, ?, ?, ?, ?, ?)";
+
+        try (Connection conn = DatabaseConnection.connect();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+
+            pstmt.setInt(1, userId);
+            pstmt.setString(2, items);
+            pstmt.setDouble(3, totalPrice);
+            pstmt.setString(4, status);
+            pstmt.setInt(5, tableId);
+            pstmt.setString(6, ticketNumber);
+
+            pstmt.executeUpdate();
+            return true;
+
+        } catch (SQLException e) {
+            System.err.println("Error adding order with table: " + e.getMessage());
+            return false;
+        }
+    }
 }

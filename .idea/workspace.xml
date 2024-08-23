@@ -99,7 +99,7 @@
       <module name="test" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="org.example.*" />
+          <option name="PATTERN" value="org.example.dao.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>

@@ -8,7 +8,10 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import org.example.dao.OrderDAO;
+import org.example.dao.TableDAO;
 import org.example.model.Order;
+import org.example.model.Table;
+import org.example.utils.TicketGenerator;
 
 public class OrderController {
 
@@ -129,5 +132,36 @@ public class OrderController {
         alert.setTitle(title);
         alert.setContentText(message);
         alert.showAndWait();
+    }
+
+    @FXML
+    private void handleSeatCustomerAndCreateOrder() {
+        TableDAO tableDAO = new TableDAO();
+        OrderDAO orderDAO = new OrderDAO();
+
+        // 1. Assign an available table
+        Table assignedTable = tableDAO.assignAvailableTable();
+        if (assignedTable != null) {
+            // 2. Generate ticket number
+            String ticketNumber = TicketGenerator.generateTicketNumber(assignedTable.getId());
+
+            // 3. Collect order details (assuming you have fields for user input)
+            int userId = Integer.parseInt(userIdField.getText());
+            String items = itemsField.getText();
+            double totalPrice = Double.parseDouble(totalPriceField.getText());
+            String status = "waiting";  // Initial status
+
+            // 4. Add order to database with table info and ticket number
+            boolean success = orderDAO.addOrderWithTable(userId, items, totalPrice, status, assignedTable.getId(), ticketNumber);
+
+            if (success) {
+                showAlert(Alert.AlertType.INFORMATION, "Success", "Customer seated at table " + assignedTable.getId() + " and order created.");
+                loadOrders();  // Refresh the order list
+            } else {
+                showAlert(Alert.AlertType.ERROR, "Error", "Failed to create order.");
+            }
+        } else {
+            showAlert(Alert.AlertType.WARNING, "No Tables Available", "There are no available tables.");
+        }
     }
 }

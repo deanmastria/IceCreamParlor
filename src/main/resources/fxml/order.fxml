@@ -36,3 +36,4 @@
         <Button text="Delete Order" onAction="#handleDeleteOrder"/>
     </HBox>
 </VBox>
+<!--<Button text="Seat Customer and Create Order" onAction="#handleSeatCustomerAndCreateOrder" />-->

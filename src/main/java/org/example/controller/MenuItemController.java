@@ -184,4 +184,6 @@ public class MenuItemController {
         ingredientsTextArea.clear();
         categoryComboBox.getSelectionModel().clearSelection();
     }
+
+
 }

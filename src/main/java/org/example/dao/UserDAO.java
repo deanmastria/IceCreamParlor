@@ -41,9 +41,10 @@ public class UserDAO {
             ResultSet rs = pstmt.executeQuery();
 
             if (rs.next()) {
+                int id = rs.getInt("id");
                 String passwordHash = rs.getString("passwordHash");
                 int roleId = rs.getInt("roleId");
-                return new User(username, passwordHash, roleId);  // Return a User object with the retrieved details
+                return new User(id, username, passwordHash, roleId);  // Return a User object with the retrieved details
             }
 
         } catch (SQLException e) {
@@ -79,15 +80,15 @@ public class UserDAO {
     }
 
     // Update (Update user profile)
-    public boolean updateUser(String username, String newPasswordHash, int newRoleId) {
-        String sql = "UPDATE Users SET passwordHash = ?, roleId = ? WHERE username = ?";
+    public boolean updateUser(int id, String newPasswordHash, int newRoleId) {
+        String sql = "UPDATE Users SET passwordHash = ?, roleId = ? WHERE id = ?";
 
         try (Connection conn = DatabaseConnection.connect();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
 
             pstmt.setString(1, newPasswordHash);
             pstmt.setInt(2, newRoleId);
-            pstmt.setString(3, username);
+            pstmt.setInt(3, id);
 
             int rowsAffected = pstmt.executeUpdate();
             return rowsAffected > 0;  // Return true if the user was successfully updated
@@ -99,13 +100,13 @@ public class UserDAO {
     }
 
     // Delete (Delete a user)
-    public boolean deleteUser(String username) {
-        String sql = "DELETE FROM Users WHERE username = ?";
+    public boolean deleteUser(int id) {
+        String sql = "DELETE FROM Users WHERE id = ?";
 
         try (Connection conn = DatabaseConnection.connect();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
 
-            pstmt.setString(1, username);
+            pstmt.setInt(1, id);
 
             int rowsAffected = pstmt.executeUpdate();
             return rowsAffected > 0;  // Return true if the user was successfully deleted

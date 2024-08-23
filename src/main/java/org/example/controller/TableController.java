@@ -8,7 +8,7 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
-import org.example.dao.TableDAO;
+import org.example.TableDAO;
 import org.example.model.Table;
 
 public class TableController {

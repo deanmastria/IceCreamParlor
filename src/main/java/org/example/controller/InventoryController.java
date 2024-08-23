@@ -7,7 +7,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
-import org.example.dao.InventoryDAO;
+import org.example.InventoryDAO;
 import org.example.model.InventoryItem;
 
 public class InventoryController {

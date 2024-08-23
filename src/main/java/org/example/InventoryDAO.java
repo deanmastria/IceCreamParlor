@@ -1,4 +1,4 @@
-package org.example.dao;
+package org.example;
 
 import org.example.model.InventoryItem;
 import org.example.utils.DatabaseConnection;

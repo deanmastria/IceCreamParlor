@@ -1,4 +1,4 @@
-package org.example.dao;
+package org.example;
 
 import org.example.model.MenuItem;
 import org.example.utils.DatabaseConnection;

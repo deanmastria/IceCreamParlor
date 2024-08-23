@@ -1,4 +1,4 @@
-package org.example.dao;
+package org.example;
 
 import org.example.model.Order;
 import org.example.utils.DatabaseConnection;

@@ -7,7 +7,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
-import org.example.dao.SalesDAO;
+import org.example.SalesDAO;
 import org.example.model.Sale;
 
 import java.io.FileWriter;

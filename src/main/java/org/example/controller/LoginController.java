@@ -9,7 +9,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import javafx.fxml.FXMLLoader;
-import org.example.dao.UserDAO;
+import org.example.UserDAO;
 import org.example.model.User;
 
 import java.io.IOException;

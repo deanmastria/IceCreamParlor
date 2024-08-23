@@ -86,5 +86,29 @@ public class TableDAO {
             return false;
         }
     }
+        // Method to assign an available table
+        public Table assignAvailableTable() {
+            String sql = "SELECT * FROM Tables WHERE status = 'Available' LIMIT 1";
+            Table assignedTable = null;
 
+            try (Connection conn = DatabaseConnection.connect();
+                 PreparedStatement pstmt = conn.prepareStatement(sql);
+                 ResultSet rs = pstmt.executeQuery()) {
+
+                if (rs.next()) {
+                    assignedTable = new Table(
+                            rs.getInt("id"),
+                            rs.getInt("size"),
+                            rs.getString("status")
+                    );
+                    // Mark table as occupied
+                    updateTableStatus(assignedTable.getId(), "Occupied");
+                }
+
+            } catch (SQLException e) {
+                System.err.println("Error assigning table: " + e.getMessage());
+            }
+
+            return assignedTable;
+        }
 }
